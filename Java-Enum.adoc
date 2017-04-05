@@ -1,1 +1,3 @@
-* https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html[Java Enum Document]
+## Java-Enum
+
+### https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html[Java Enum Document]
