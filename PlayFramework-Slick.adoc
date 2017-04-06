@@ -1,2 +1,7 @@
-# documents : http://slick.lightbend.com/docs/
-# Example Project : https://github.com/nemoo/play-slick3-example
+## PlayFramework-Slick
+
+### documents
+* http://slick.lightbend.com/docs/
+
+### Example Project
+* https://github.com/nemoo/play-slick3-example
