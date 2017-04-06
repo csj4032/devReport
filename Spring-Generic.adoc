@@ -1,0 +1,5 @@
+## Spring-Generic
+
+### 참고
+* https://spring.io/blog/2013/12/03/spring-framework-4-0-and-java-generics
+* https://www.slideshare.net/meadunhansa/generic-autowired
