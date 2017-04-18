@@ -1,0 +1,6 @@
+## Spring-ListenableFuture.adoc
+### Document
+* https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/concurrent/ListenableFuture.html
+
+### Blog
+* https://spring.io/blog/2016/04/19/understanding-reactive-types
