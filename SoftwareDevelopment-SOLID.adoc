@@ -1,0 +1,4 @@
+## SoftwareDevelopment-SOLID
+
+Wikipedia : https://ko.wikipedia.org/wiki/SOLID
+GitBook : https://trazy.gitbooks.io/oop/content/index.html
