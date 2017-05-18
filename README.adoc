@@ -1,2 +1,3 @@
-# devReport
-    개발 관련 기록물 관리
+= devReport 개발 관련 기록물 관리
+
+## AsciiDoc Syntax Quick Reference : link:++http://asciidoctor.org/docs/asciidoc-syntax-quick-reference++[AsciiDoc Syntax Quick Reference]

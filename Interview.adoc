@@ -1,0 +1,48 @@
+= Interview
+
+## Java
+
+* Overloading
+** 클래스의 메서드끼리 이름은 같은데 매개변수가 다르며 메서드 오버로딩이 일어남
+** 메서드를 호출할 때 어떤 메서드를 사용하지는 컴파일 할 때 결정
+
+* Overriding
+** 자식 클래스에 있는 인스턴스 메서드가 부모 클래스의 접근 가능한 메서드와 동일한 이름과 매개변수를 가지면 오버라이딩 함
+** 오버라이딩 되면 동적 디스패치가 가능해짐
+** 오버라이딩은 객체 지향 프로그램밍의 가장 핵심이 되는 기능
+
+* Shadowing
+** 변수, 메서드, 클래스, 인터페이스의 이름을 같은 영역에서 동일하게 사용하면 이름이 겹쳐 새도윙이 발생
+** 어떤 대상이 섀도윙되면, 해당 대상을 이름으로 접근할 수 없음
+
+## Spring
+
+## Software Pattern
+
+### SOLID
+* Single Responsibility Principle : 단일책임의 원칙
+** Single Responsibility Principle 란 클래스는 하나의 책임을 가져야하며 그 책임에 대한 이유로 변경되어야 한다
+
+* Open Close Principle : 개방폐쇄의 원칙
+**
+[source,java, indent=4]
+----
+class Student {
+  // 회사에서 일을 합니다.
+  public void work() {
+    ......
+  }
+  // 학교에서 공부를 합니다.
+  public void study() {
+    ......
+  }
+}
+----
+
+* The Liskov Substitution Principle : 리스코브 치환의 원칙
+** '서브 타입은 언제나 기반 타입으로 교체할 수 있어야 한다.'
+
+* Interface Segregation Principle : 인터페이스 분리의 원칙
+**
+
+* Dependency Inversion Principle : 의존성역전의 원칙
