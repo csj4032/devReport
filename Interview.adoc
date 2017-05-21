@@ -6,30 +6,45 @@
 
 === 용어
 
-    * Hiding
-        ** 부모 클래스의 필드, 정적 메서드, 클래스, 또는 인터페이스와 동일한 이름으로 자식 클래스의 필드, 정적 메서드, 클래스, 또는 인터페이스의 이름을 만들면, 자식에서 만든 요소가 부모에 있는 요소를 하이딩함
+* Hiding
+** 부모 클래스의 필드, 정적 메서드, 클래스, 또는 인터페이스와 동일한 이름으로 자식 클래스의 필드, 정적 메서드, 클래스, 또는 인터페이스의 이름을 만들면, 자식에서 만든 요소가 부모에 있는 요소를 하이딩함
 
-    * Shadowing
-        ** 변수, 메서드, 클래스, 인터페이스의 이름을 같은 영역에서 동일하게 사용하면 이름이 겹쳐 새도윙이 발생
-        ** 어떤 대상이 섀도윙되면, 해당 대상을 이름으로 접근할 수 없음
+* Shadowing
+** 변수, 메서드, 클래스, 인터페이스의 이름을 같은 영역에서 동일하게 사용하면 이름이 겹쳐 새도윙이 발생
+** 어떤 대상이 섀도윙되면, 해당 대상을 이름으로 접근할 수 없음
 
-    * Deep copy, Shallow Copy
-        ** 배열이나 객체를 복사할 때 단순히 참조만 복사하는 것을 shallow copy, 원본과 같은 데이터를 저장하고 있는 새로운 객체나 배열을 생성하는 것은 deep copy 라고 한다.
+* Deep copy, Shallow Copy
+** 배열이나 객체를 복사할 때 단순히 참조만 복사하는 것을 shallow copy, 원본과 같은 데이터를 저장하고 있는 새로운 객체나 배열을 생성하는 것은 deep copy 라고 한다.
 
-    * 접근제한자
+* 접근제한자
 
-        ** 종류
-            *** default : 같은 패키지(폴더)에 있는 객체들만 허용
-            *** public : 모든 접근을 허용
-            *** private : 현재 객체 내에서만 허용
-            *** protected : 같은 패키지(폴더)에 있는 객체와 상속관계의 객체들만 허용
+** 종류
+*** default : 같은 패키지(폴더)에 있는 객체들만 허용
+*** public : 모든 접근을 허용
+*** private : 현재 객체 내에서만 허용
+*** protected : 같은 패키지(폴더)에 있는 객체와 상속관계의 객체들만 허용
 
-        ** 사용
-            *** 클래스 : public, default
-            *** 생성자 : public, protected, default, private
-            *** 멤버변수 : public, protected, default, private
-            *** 멤버메소드 : public, protected, default, private
-            *** 지역변수 : 접근제한자 사용 불허
+** 사용
+*** 클래스 : public, default
+*** 생성자 : public, protected, default, private
+*** 멤버변수 : public, protected, default, private
+*** 멤버메소드 : public, protected, default, private
+*** 지역변수 : 접근제한자 사용 불허
+
+* final
+** 변수에 적용하면 : 해당 변수의 값은 변경이 불가능
+** 변수의 참조에 적용하면 : 참조 변수가 힙 내의 대란 객체를 가리키도록 변경 할 수 없음
+** 메서드에 적용하면 : 해당 메서드를 오버라이드 할 수 없음
+** 클래스에 적용하면 : 해당 클래스의 하위 클래스를 정의 할 수 없음
+
+* finally
+** try 블록 또는 catch 블록 뒤에 둘 수 있는 선택적인 블록을 정의할 때 사용
+** finally 블록 내에 둔 코드는 항상 실행
+** finally 블록은 뒷마무리 코드를 작성하는데 사용
+
+* finalize()
+** finalize() 메서드는 GC가 더 이상의 참조가 존재하지 않는 객체를 발견한 순간 호출하는 메서드다.
+** 파일을 닫는 등, 자원 반환 작업을 하는데 보통 사용
 
 === Java Virtual Machine
 ==== JVM 특징 [http://d2.naver.com/helloworld/1230]
@@ -52,78 +67,154 @@ GC 과정에 관심을 가질 정도라면 규모가 일정 이상인 애플리�
 
 ==== 가비지 컬렉션 과정 - Generational Garbage Collection
 
-=== Collection
+=== Collection (Map)
+* Collection
 
+** List
+
+**** ArrayList (List)
+***** 내부 배열에 기반을 둔 리스트 구현
+***** 리스트 요소에 대한 접근이 다른 리스트 기반 클래스보다 빠름
+***** 요소가 삽입될 때 추가될 공간을 만들기 위해 객체를 이동시켜야 하고 삭제할 때는 삭제된 공간을 없애기 위해 요소들이 이동해야 하기 때문에 이동이 많아져 요소의 삽입과 삭제가 느림
+***** 멀티쓰레드에 대한 동기화 안됨
+
+**** Vector (List)
+***** 멀티쓰레드에 대한 동기화
+
+**** LinkedList (Queue, List)
+***** 연결된 노드들을 기반으로 구현된 리스트
+***** 리스트에 있는 요소를 접근하기 위해서는 링크를 통해 접근해야 하기 때문에 접근 속도가 느림
+***** 노드에 대한 참조만을 변경하기 떄문에 삽입, 삭제 작업이 빠름
+
+** Set
+
+*** TreeSet (SortedSet, NavigableSet)
+**** 트리 자료 구조를 기반으로 구현
+**** 트리 자료 구조를 가지기 때문에 요소는 정렬된 저장
+**** 요소에 접근하기 위해서는 반드시 링크를 통해야 하기 떄문에 접근 속도가 다른 Set 보다 느림
+
+*** HashSet (Set)
+**** 해쉬 테이블 자료 구조를 기반
+**** 요소에 대한 정렬을 보장하지 않음
+**** HashSet 은 TreeSet 보다 빠른 속도의 제공하며 null 참조가 저장되는 것을 허용
+
+*** LinkedHasSet
+
+*** EnumSet
+**** 비트셋을 기반으로 구현
+**** 저장되는 요소들은 열거형 Set 이 생성될 때 지정한 열거형에 포함되어 있는 상수
+**** null 요소가 허용 안됨, null 요소를 저장하려고 하면 NullPointException
+
+** Queue
+*** 요소를 특정 순서로 지정하고 검색할 수 있는 컬렉션
+*** AbstractQueue, ArrayBlockingQueue, ArrayDeque, ConcurrentLinkedDeque, ConcurrentLinkedQueue, DelayQueue, LinkedBlockingDeque, LinkedBlockingQueue,
+*** LinkedList, LinkedTransferQueue, PriorityBlockingQueue, PriorityQueue, SynchronousQueue
+
+** Deque
+*** 큐의 머리와 꼬리 부분 모두에서 삽입과 제거를 할 수 있는 더블 앤드 큐
+*** ArrayDeque, ConcurrentLinkedDeque, LinkedBlockingDeque, LinkedList
+
+* Map
+
+** HashMap
+*** 해쉬 테이블 자료 구조를 기반으로 하는 맵 구현
+*** null 키와 값을 가진 항목을 허용하는데 항목이 저장되는 순서는 보장 하지 않음
+
+** HashTable
+
+** LinkedHashMap
+*** 기본적으로 HashMap을 상속받아 HashMap과 매우 흡사
+*** Map에 있는 엔트리들의 연결 리스트를 유지되므로 입력한 순서대로 반복 가능
+
+** TreeMap (SortedMap)
+*** 이진검색트리의 형태로 키와 값의 쌍으로 이루어진 데이터를 저장
+*** 검색과 정렬에 적합한 컬렉션
+
+** Properties (HashTable)
+*** (String, String) 형태로 저장하는 보다 단순화된 컬렉션
 
 === 멀티쓰레드
-    * 읽기 연산과 쓰기 연산에 전부 적용하지 않으면 동기화는 아무런 효과도 없음
-    * Thread 동기화의 종류
-        ** synchronized : 특정 메서드나 코드 블록을 한 번에 한 스레드만 사용하도록 보장
-        ** volatile : 상호 배제성을 실현하지 않음, 어떤 스레드건 가장 최근에 기록된 값을 읽도록 보장
+* Thread 란 : 시작점과 종료점을 가지는 일련된 하나의 작업 흐름
+* Thread 동기화의 종류
+** synchronized : 특정 메서드나 코드 블록을 한 번에 한 스레드만 사용하도록 보장
+** volatile : 상호 배제성을 실현하지 않음, 어떤 스레드건 가장 최근에 기록된 값을 읽도록 보장
+* 읽기 연산과 쓰기 연산에 전부 적용하지 않으면 동기화는 아무런 효과도 없음
+
+==== 리플렉션
+* 객체 리플렉션이란
+** Java 클래스와 객체에 대한 정보를 프로그램 내에서 동적으로 알아낼수 있도록 하는 기능
+* 리플렉션 작업
+** 클래스 내부에서, 실행 시간에, 메서드와 필드에 대한 정보를 얻을 수 있음
+** 어떤 클래스로부터 객체를 생성할 수 있음
+** 객체 필드의 유요 범위가 어떻게 선언되어 있는냐에 관계없이, 그 필드에 대한 참조를 얻어내어 값을 가져오거나 설정
+* 리플렉션 유용성
+** 프로그램이 어떻게 동작하고 있는지에 대한 정보를 실행 시간에 관측하고 조정할 수 있도록 해줌
+** 메서드나 생성자, 필드를 직접 접근할 수 있기 때문에 프로그램을 디버깅하거나 테스트 할 때 유용
+** 호출할 메서드를 미리 알고 있지 않더라도 그 이름을 사용하여 호출할 수 있다
 
 === 버전별 변화
-    * 1.5
-        ** Generic 도입
-        ** 향상된 for (foreach)
-        ** Enum
-        ** Static Import
-        ** Metadata
-        ** Autoboxing / Unboxing
-        ** ThreadPool
-        ** Annotation
-    * 1.6
-        ** Garbage First
-     * 1.7
-        ** 다이아몬드(<>) 지시자 형식 유추
-        ** String in Switch Statements :  Java 6 까지의 버전에서는 Switch-case 문에서 case 조건으로 판단할수 잇는 데이터 형은 원시형 데이터
-        ** Multi-Exception catch
-        ** null 체크 방법 개선
-        ** Bracket Notation for Collection
-        ** 자동 자원 관리 (AutoCloseble)
-        ** 숫자와 관련된 문자에 밑줄 표시
-        ** Path를 이용한 처리 (NIO)
-        ** Fork와 Join
-     * 1.8
-        ** Lambda Expression
-        ** Nashorn
-        ** Annotation 보안
-        ** OS Process Control
-        ** Default Method Interface (default method, static method)
-        ** Date API, Stream API, , Collection 에 Functional Programming
-        ** 동시성 API 개선
-        ** Permanent Generation 제거 (Metaspace)
-     * 1.9
-        ** Modular System (Jigsaw)
-        ** Java Shell
-        ** Stream 메소드 추가
-        ** System.in Static
+* 1.5
+** Generic 도입
+** 향상된 for (foreach)
+** Enum
+** Static Import
+** Metadata
+** Autoboxing / Unboxing
+** ThreadPool
+** Annotation
+* 1.6
+** Garbage First
+* 1.7
+** 다이아몬드(<>) 지시자 형식 유추
+** String in Switch Statements :  Java 6 까지의 버전에서는 Switch-case 문에서 case 조건으로 판단할수 잇는 데이터 형은 원시형 데이터
+** Multi-Exception catch
+** null 체크 방법 개선
+** Bracket Notation for Collection
+** 자동 자원 관리 (AutoCloseble)
+** 숫자와 관련된 문자에 밑줄 표시
+** Path를 이용한 처리 (NIO)
+** Fork와 Join
+* 1.8
+** Lambda Expression
+** Nashorn
+** Annotation 보안
+** OS Process Control
+** Default Method Interface (default method, static method)
+** Date API, Stream API, , Collection 에 Functional Programming
+** 동시성 API 개선
+** Permanent Generation 제거 (Metaspace)
+* 1.9
+** Modular System (Jigsaw)
+** Java Shell
+** Stream 메소드 추가
+** System.in Static
 
 == Spring
 
 === IoC(Inversion of Control) Container
-    * IoC 란 : 프로그래머가 작성한 프로그램이 재사용 라이브러리의 흐름 제어를 받게 되는 소프트웨어 디자인 패턴을 말한다.
-    * Bean : 스프링이 IoC 방식으로 관리하는 오브젝트
-    * Bean Factory : 스프링에서는 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트
-    * Application Context : Bean Factory 확장, 스프링이 제공하는 각종 부가 서비스를 추가 제공
+* IoC 란 : 프로그래머가 작성한 프로그램이 재사용 라이브러리의 흐름 제어를 받게 되는 소프트웨어 디자인 패턴을 말한다.
+* Bean : 스프링이 IoC 방식으로 관리하는 오브젝트
+* Bean Factory : 스프링에서는 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트
+* Application Context : Bean Factory 확장, 스프링이 제공하는 각종 부가 서비스를 추가 제공
 === DI
-    * DI 란 : 클래스 사이의 의존관계를 빈 설정 정보를 바탕으로 컨테이너가 자동적으로 연결해주는 것
-    * 종류
-        ** 생성자를 이용한 의존성 주입
-        ** Setter 메서드를 이용한 의존성 주입
-        ** 초기화 인터페이스를 이용한 의존성 주입
+* DI 란 : 클래스 사이의 의존관계를 빈 설정 정보를 바탕으로 컨테이너가 자동적으로 연결해주는 것
+* 종류
+** 생성자를 이용한 의존성 주입
+** Setter 메서드를 이용한 의존성 주입
+** 초기화 인터페이스를 이용한 의존성 주입
 
 === Bean Scope
-    * Singleton 범위
-    * Prototype 범위
+* Singleton 범위
+* Prototype 범위
 
 === Spring MVC
-    * DispatcherServlet : 클라이언트의 요청을 전달받는다. 컨트롤러에게 클라이언트의 요청을 전달하고, 컨트롤러가 리턴한 결과값을 View 에 전달하여 알맞은 응답을 생성하도록 한다.
-    * HandlerMapping : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지를 결정한다.
-    * HandlerAdapter : DispatcherServlet 의 처리 요청을 변환해서 컨트롤러에게 전달하고, 컨트롤러의 응답 결과를 DispatcherServlet 이 요구하는 형식으로 변환한다. 웹브라우저 캐시 등의 설정도 담당
-    * Controller : 클라이언트의 요청을 처리한 뒤 결과를 리턴한다. 응답 결과에서 보여줄 데이터를 모델에 담아 전달한다.
-    * ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담는다.
-    * ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정한다.
-    * View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송한다.
+* DispatcherServlet : 클라이언트의 요청을 전달받는다. 컨트롤러에게 클라이언트의 요청을 전달하고, 컨트롤러가 리턴한 결과값을 View 에 전달하여 알맞은 응답을 생성하도록 한다.
+* HandlerMapping : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지를 결정한다.
+* HandlerAdapter : DispatcherServlet 의 처리 요청을 변환해서 컨트롤러에게 전달하고, 컨트롤러의 응답 결과를 DispatcherServlet 이 요구하는 형식으로 변환한다. 웹브라우저 캐시 등의 설정도 담당
+* Controller : 클라이언트의 요청을 처리한 뒤 결과를 리턴한다. 응답 결과에서 보여줄 데이터를 모델에 담아 전달한다.
+* ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담는다.
+* ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정한다.
+* View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송한다.
 
 == Software Pattern
 
@@ -156,17 +247,17 @@ GC 과정에 관심을 가질 정도라면 규모가 일정 이상인 애플리�
 * 추상 클래스와 인터페이스는 상속받는 클래스 혹은 인터페이스 안에 있는 추상 메소드를 구현하도록 강제한다.
 
 === AOP
-    * 횡단 관심사의 모듈화, 분리 (애플리케이션의 여러 부분에 영향을 주는 기능)
-        ** 횡단 관심사 : 한 애플리케이션의 야러 부분에 걸쳐 있는 기능을 가리켜 횡단 관심사
-        ** 예) 보안은 하나의 애플리케이션내에서도 여러 객체 메소드의 보안 규칙에 영향을 미치는 횡단 관심사
-    * 어드바이스 : 애스펙트가 해야 할 작업, 무엇을 언제 할지 결정
-        * before, after, after-returing, after-throwing, around
-    * 조인 포인트 : 어드바이스를 적용할 수 있는 곳, 즉 조인 포인트는 애플리케이션 실행에 애스펙트를 끼워 넣을 수 있는 지점
-    * 포인트커트 : 애스펙트가 어드바이스할 조인 포인트, 한 애스펙트가 전체 애플리케이션의 모든 조인 포인트를 다 어드바이스 할 수는 없는 노릇
-    * 애스펙트 : 어드바이스 + 포인트커트 ((언제, 무엇), (어디서))
-    * 인트로덕션 : 기존 클래스에 코드를 변경 없이도 새 메소드나 멤버 변수를 추가 하는 기능
-    * 위빙 : 타킷 객체에 애스펙트를 적용해서 새로운 프록시 객체를 생성하는 절차
-        ** compile time, classload time, runtime
+* 횡단 관심사의 모듈화, 분리 (애플리케이션의 여러 부분에 영향을 주는 기능)
+** 횡단 관심사 : 한 애플리케이션의 야러 부분에 걸쳐 있는 기능을 가리켜 횡단 관심사
+** 예) 보안은 하나의 애플리케이션내에서도 여러 객체 메소드의 보안 규칙에 영향을 미치는 횡단 관심사
+* 어드바이스 : 애스펙트가 해야 할 작업, 무엇을 언제 할지 결정
+* before, after, after-returing, after-throwing, around
+* 조인 포인트 : 어드바이스를 적용할 수 있는 곳, 즉 조인 포인트는 애플리케이션 실행에 애스펙트를 끼워 넣을 수 있는 지점
+* 포인트커트 : 애스펙트가 어드바이스할 조인 포인트, 한 애스펙트가 전체 애플리케이션의 모든 조인 포인트를 다 어드바이스 할 수는 없는 노릇
+* 애스펙트 : 어드바이스 + 포인트커트 ((언제, 무엇), (어디서))
+* 인트로덕션 : 기존 클래스에 코드를 변경 없이도 새 메소드나 멤버 변수를 추가 하는 기능
+* 위빙 : 타킷 객체에 애스펙트를 적용해서 새로운 프록시 객체를 생성하는 절차
+** compile time, classload time, runtime
 
 === SOLID
 * Single Responsibility Principle : 단일책임의 원칙
@@ -203,14 +294,14 @@ class Student {
 == 알고리즘 & 자료구조
 
 === 알고리즘이란?
- * 주어진 문제를 해결하기 위한 방법을 추상화하여 일련의 단계적 절차를 논리적으로 기술해놓은 명세서
- * 용어
-    ** 동적계획법 : 동적 계획법의 원리는 매우 간단하다. 일반적으로 주어진 문제를 풀기 위해서,
-    문제를 여러 개의 하위 문제(subproblem)로 나누어 푼 다음,
-    그것을 결합하여 최종적인 목적에 도달하는 것이다. 각 하위 문제의 해결을 계산한 뒤,
-    그 해결책을 저장하여 후에 같은 하위 문제가 나왔을 경우 그것을 간단하게 해결할 수 있다.
-    이러한 방법으로 동적 계획법은 계산 횟수를 줄일 수 있다.
-    특히 이 방법은 하위 문제의 수가 기하급수적으로 증가할 때 유용하다.
+* 주어진 문제를 해결하기 위한 방법을 추상화하여 일련의 단계적 절차를 논리적으로 기술해놓은 명세서
+* 용어
+** 동적계획법 : 동적 계획법의 원리는 매우 간단하다. 일반적으로 주어진 문제를 풀기 위해서,
+문제를 여러 개의 하위 문제(subproblem)로 나누어 푼 다음,
+그것을 결합하여 최종적인 목적에 도달하는 것이다. 각 하위 문제의 해결을 계산한 뒤,
+그 해결책을 저장하여 후에 같은 하위 문제가 나왔을 경우 그것을 간단하게 해결할 수 있다.
+이러한 방법으로 동적 계획법은 계산 횟수를 줄일 수 있다.
+특히 이 방법은 하위 문제의 수가 기하급수적으로 증가할 때 유용하다.
 
 === 자료구조란?
  * 자료를 효율적으로 표현하고 저장, 처리하기 위해 정리하는 것
@@ -225,8 +316,8 @@ class Student {
 === 해시 테이블
 
 === ETC
- * AVL-TREE
- * Red-Black Tree
+* AVL-TREE
+* Red-Black Tree
 
 == 운영체제
 === 프로세스
@@ -235,47 +326,48 @@ class Student {
 
 == 네트워크
 === TCP
-    * TCP 3-WAY HAND SHAKING
-        ** TCP/IP 프로토콜을 이용해서 통신을 하는 응용프로그램이 데이터를 전송하기 전에 먼저 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정을 의미
-        ** 양쪽 모두 데이타를 전송할 준비가 되었다는 것을 보장하고, 실제로 데이타 전달이 시작하기전에 한쪽이 다른 쪽이 준비되었다는 것을 알수 있도록 함
-        ** 양쪽 모두 상대편에 대한 초기 순차일련변호를 얻을 수 있도록 함
-        ** 과정
-            *** A클라이언트는 B서버에 접속을 요청하는 SYN 패킷을 보낸다. 이때 A클라이언트는 SYN 을 보내고 SYN/ACK 응답을 기다리는SYN_SENT 상태가 되는 것이다.
-            *** B서버는 SYN요청을 받고 A클라이언트에게 요청을 수락한다는 ACK 와 SYN flag 가 설정된 패킷을 발송하고 A가 다시 ACK으로 응답하기를 기다린다. 이때 B서버는 SYN_RECEIVED 상태가 된다.
-            *** A클라이언트는 B서버에게 ACK을 보내고 이후로부터는 연결이 이루어지고 데이터가 오가게 되는것이다. 이때의 B서버 상태가 ESTABLISHED 이다.
+* TCP 3-WAY HAND SHAKING
+** TCP/IP 프로토콜을 이용해서 통신을 하는 응용프로그램이 데이터를 전송하기 전에 먼저 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정을 의미
+** 양쪽 모두 데이타를 전송할 준비가 되었다는 것을 보장하고, 실제로 데이타 전달이 시작하기전에 한쪽이 다른 쪽이 준비되었다는 것을 알수 있도록 함
+** 양쪽 모두 상대편에 대한 초기 순차일련변호를 얻을 수 있도록 함
+** 과정
+*** A클라이언트는 B서버에 접속을 요청하는 SYN 패킷을 보낸다. 이때 A클라이언트는 SYN 을 보내고 SYN/ACK 응답을 기다리는SYN_SENT 상태가 되는 것이다.
+*** B서버는 SYN요청을 받고 A클라이언트에게 요청을 수락한다는 ACK 와 SYN flag 가 설정된 패킷을 발송하고 A가 다시 ACK으로 응답하기를 기다린다. 이때 B서버는 SYN_RECEIVED 상태가 된다.
+*** A클라이언트는 B서버에게 ACK을 보내고 이후로부터는 연결이 이루어지고 데이터가 오가게 되는것이다. 이때의 B서버 상태가 ESTABLISHED 이다.
 
 === Http
-    * Method
-        ** GET
-            *** idempotent
-            *** 서버에게 리소스를 달라고 요청하기 위해 쓰임
-            *** HTTP/1.1은 서버가 이 메서드를 구현할 것을 요구
-        ** HEAD
-           *** 정확히 GET 처러 행동하지만, 서버는 응답으로 헤더만을 돌려줌 (엔터티 본문 X)
-           *** 리소스를 가져오지 않고도 그에 대해 무엇인가를 알아낼 수 있다.
-           *** 응답의 상태 코드를 통해, 개체가 존재하는지 확인할 수 있다.
-           *** 헤더를 확인하여 리소스가 변경되었는지 검사할 수 있다.
-        ** PUT
-            *** 서버에서 문서를 씀
-            *** 웹페이지를 만들고 웹 서버에 직접 게시할 수 있도록 해줌
-            *** 서버가 요청의 본문을 가지고 요청 URL의 이름대로 새 문서를 만들거나, 이미 URL이 존재한다면 본문을 사용해서 교체하는 것
-            *** 콘텐츠를 변경할 수 있게 해주기 떄문에, 많은 웹 서버가 PUT을 수행하기 전에 사용자에게 비밀번호를 입력해서 로그인을 하도록 요구
-        ** POST
-            *** non-idempotent
-            *** 서버에 입력 데이터를 전송하기 위해서 설계
-        ** TRACE
-            *** 클라이언트에게 자신의 요청이 서버에 도달했을 때 어떻게 보이게 되는지 알려줌
-        ** OPTION
-            *** 웹 서버에게 여려 가지 종류의 지원 범위에 대해서 물어봄
-        ** DELETE
-            *** 서버에게 요청 URL로 지정한 리소스를 삭제할 것을 요청
-    * Restful API
-        ** Representational State Transfer 라는 용어의 약자로서 2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개
-        ** REST는 요소로는 크게 리소스,메서드,메세지 3가지 요소로 구성
+* Method
+** GET
+*** idempotent
+*** 서버에게 리소스를 달라고 요청하기 위해 쓰임
+*** HTTP/1.1은 서버가 이 메서드를 구현할 것을 요구
+** HEAD
+*** 정확히 GET 처러 행동하지만, 서버는 응답으로 헤더만을 돌려줌 (엔터티 본문 X)
+*** 리소스를 가져오지 않고도 그에 대해 무엇인가를 알아낼 수 있다.
+*** 응답의 상태 코드를 통해, 개체가 존재하는지 확인할 수 있다.
+*** 헤더를 확인하여 리소스가 변경되었는지 검사할 수 있다.
+** PUT
+*** 서버에서 문서를 씀
+*** 웹페이지를 만들고 웹 서버에 직접 게시할 수 있도록 해줌
+*** 서버가 요청의 본문을 가지고 요청 URL의 이름대로 새 문서를 만들거나, 이미 URL이 존재한다면 본문을 사용해서 교체하는 것
+*** 콘텐츠를 변경할 수 있게 해주기 떄문에, 많은 웹 서버가 PUT을 수행하기 전에 사용자에게 비밀번호를 입력해서 로그인을 하도록 요구
+** POST
+*** non-idempotent
+*** 서버에 입력 데이터를 전송하기 위해서 설계
+** TRACE
+*** 클라이언트에게 자신의 요청이 서버에 도달했을 때 어떻게 보이게 되는지 알려줌
+** OPTION
+*** 웹 서버에게 여려 가지 종류의 지원 범위에 대해서 물어봄
+** DELETE
+*** 서버에게 요청 URL로 지정한 리소스를 삭제할 것을 요청
+* Restful API
+** Representational State Transfer 라는 용어의 약자로서 2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개
+** REST는 요소로는 크게 리소스,메서드,메세지 3가지 요소로 구성
+
 == Q&A
 
-Q1 : 장애대응
-A1 :
+=== Q1 : 쓰레드와 프로세스의 차이는?
+* A1 : 프로세스와 쓰레드는 서로 관계가 있으나 기본적으로는 다르다.
 
 Q2 : DB
 A1 :
@@ -310,10 +402,13 @@ public static int StringToInt(String str) {
 Q6 : 0 ~ 1000의 숫자중 중복 가능하게 1000개의 숫자를 뽑았을때, 이들 중 중간값
 A6 : 카운팅 소트, 1000개의 변수를 갖는 배열, 숫자 값을 인덱스 , 해당 숫자가 나올떄마다 해당 변수의 값을 증가, 갯수를 앞에서부터 더해 500 이상, 지점의 인덱스
 
-Q8 : Singleton Multi Thread 고려해서 구현
+Q8 : Multi Thread가 고려된 Singleton 구현
 
-Q9 : 써본 DB가 뭐고 장단점 들을 말해보라
+Q9 : 사용해본 DBMS 들의 장담점을 설명해보라
+A9 :
 
-Q10 : 클래스와 객체의 차이!
+Q10 : 클래스와 객체의 차이
+A10 :
+
 
 === 빅오표기볍 (시간, 공간)
