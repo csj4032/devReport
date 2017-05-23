@@ -68,6 +68,13 @@
 ** 파일을 닫는 등, 자원 반환 작업을 하는데 보통 사용
 
 === Java Virtual Machine
+* 가상 머신(virtual machine)이란 여러 가지로 정의할 수 있지만, 프로그램을 실행하기 위해 물리적 머신(즉, 컴퓨터)와 유사한 머신을 소프트웨어로 구현한 것을 말한다고 할 수 있다.
+지금은 비록 빛이 바랜 목표이긴 하나 자바는 원래 WORA(Write Once Run Anywhere)를 구현하기 위해 물리적인 머신과 별개의 가상 머신을 기반으로 동작하도록 설계되었다.
+그래서 자바 바이트코드를 실행하고자 하는 모든 하드웨어에 JVM을 동작시킴으로써 자바 실행 코드를 변경하지 않고도 모든 종류의 하드웨어에서 동작되게 한 것
+
+==== 자바 바이트코드
+* WORA를 구현하기 위해 JVM은 사용자 언어인 자바와 기계어 사이의 중간 언어인 자바 바이트코드를 사용한다. 이 자바 바이트코드가 자바 코드를 배포하는 가장 작은 단위
+
 ==== JVM 특징 [http://d2.naver.com/helloworld/1230]
 * 스택 기반의 가상 머신: 대표적인 컴퓨터 아키텍처인 인텔 x86 아키텍처나 ARM 아키텍처와 같은 하드웨어가 레지스터 기반으로 동작하는 데 비해 JVM은 스택 기반으로 동작한다.
 * 심볼릭 레퍼런스: 기본 자료형(primitive data type)을 제외한 모든 타입(클래스와 인터페이스)을 명시적인 메모리 주소 기반의 레퍼런스가 아니라 심볼릭 레퍼런스를 통해 참조한다.
@@ -76,8 +83,23 @@
 * 네트워크 바이트 오더(network byte order): 자바 클래스 파일은 네트워크 바이트 오더를 사용한다.
 인텔 x86 아키텍처가 사용하는 리틀 엔디안이나, RISC 계열 아키텍처가 주로 사용하는 빅 엔디안 사이에서 플랫폼 독립성을 유지하려면 고정된 바이트 오더를 유지해야 하므로 네트워크 전송 시에 사용하는 바이트 오더인 네트워크
 바이트 오더를 사용한다. 네트워크 바이트 오더는 빅 엔디안이다.
-* 런타임 테이터 영역 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[런타임 테이터 영역]
+ * 오라클 핫스팟 JVM 외에도 IBM JVM을 비롯한 다양한 JVM이 존재
+
+* JVM 구조
+** 자바로 작성한 코드는 클래스 로더(Class Loader)가 컴파일된 자바 바이트코드를 런타임 데이터 영역(Runtime Data Areas)에 로드하고, 실행 엔진(Execution Engine)이 자바 바이트코드를 실행 +
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[JVM 구조]
+** 클래스 로더
+*** 자바는 동적 로드, 즉 컴파일타임이 아니라 런타임에 클래스를 처음으로 참조할 때 해당 클래스를 로드하고 링크하는 특징이 있다. 이 동적 로드를 담당하는 부분이 JVM의 클래스 로더
+*** 클래스 로더 특징
+**** 계층 구조: 클래스 로더끼리 부모-자식 관계를 이루어 계층 구조로 생성된다. 최상위 클래스 로더는 부트스트랩 클래스 로더(Bootstrap Class Loader)
+
+* 런타임 데이터 영역 +
+** 런타임 데이터 영역은 JVM이라는 프로그램이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. 런타임 데이터 영역은 6개의 영역으로 나눌 수 있다.
+이중 PC 레지스터(PC Register), JVM 스택(JVM Stack), 네이티브 메서드 스택(Native Method Stack)은 스레드마다 하나씩 생성되며 힙(Heap), 메서드 영역(Method Area), 런타임 상수 풀(Runtime Constant Pool)은 모든 스레드가 공유해서 사용 +
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[런타임 데이터 영역]
+
+==== Tip
+* Java 메서드 크기 65535바이트 제한
 
 === Java Garbage Collection [http://d2.naver.com/helloworld/1329]
 * Java에서는 개발자가 프로그램 코드로 메모리를 명시적으로 해제하지 않기 때문에 가비지 컬렉터(Garbage Collector)가 더 이상 필요 없는 객체를 찾아 지우는 작업을 함
@@ -91,6 +113,53 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[런타임
 image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[영역 및 데이터 흐름도]
 
 ==== 가비지 컬렉션 과정 - Generational Garbage Collection
+
+=== Out Of Memory Error [http://ukja.tistory.com/61] +
+* Java Virtual Machine Model +
+image:http://www.nextree.co.kr/content/images/2016/09/JVM-1.jpg[Java Virtual Machine Model]
+* HotSpot JVM 구조와 영역별 Option +
+image:http://www.nextree.co.kr/content/images/2016/09/JVM-2.png[HotSpot JVM 구조와 영역별 Option]
+* 보통 잘못된 코딩으로 인해 발생하게 되는 OOME의 대부분은 Permanent Space에서 발생
+
+==== Java heap spac
+* Heap size의 부족으로 Java Object를 Heap에 할당하지 못하는 경우. JVM 옵션 설정을 하지 않은 경우 많이 발생
+* Java Heap의 크기가 작은 경우
+* Memory Leak이 발생하는 경우
+** Application Logic에 의한 Memory Leak
+** JDK Bug나 WAS Bug에 의한 Memory Leak
+** finalize 메소드에 의한 Collection 지연
+* Object Allocation Profiling 수행
+
+==== PermGen space
+* Class나 Method 객체를 PermGen space에 할당하지 못하는 경우 발생하며 애플리케이션에서 너무 많은 class를 로드할 때 발생한다. 주로 잘못된 설계/구현에 의해 발생한다. -XX:PermSize, -XX:MaxPermSize Option을 이용하여 오류를 수정하기도 함
+* 일반적으로 Class의 로딩은 시스템의 Class path에 의해서 로드된 Class 객체들과 에플리케이션 내 구현으로 다이나믹하게 로드되는 class들이 있는데 주로 문제는 애플리케이션 내 로직으로 다이나믹 하게 생성되는 Class들에 의해서 발생
+* Class Loading 모니터링
+** -verbose:gc: Loading되는 Class들을 Standard Out을 통해 출력해준다.
+** Platform MBean: JMX 표준을 통해 제공되는 ClassLoadingMXBean API를 이용하면 프로그래밍적으로 Class Loading 정보를 얻을 수 있다.
+** JConsole: JConsole을 이용하면 Class Loading 정보를 조회할 수 있다. JConsole은 JMX 클라이언트의 표준 샘플로 Platform MBean과 통신해서 Class Loading 정보를 얻는다.
+
+==== Requested array size exceeds VM limit
+* 사용할 배열의 사이즈가 VM에서 정의될 사이즈를 초과할 때 발생한다.
+
+==== request bytes for . Out of swap space?
+* Java는 런타임시 물리적 메모리를 초과한 경우 가상메모리를 확장해 사용하게 되는데 가용한 가상메모리가 없을 경우 발생
+
+==== (Native method)
+* JVM에 설정된 것 보다 큰 native메모리가 호출 될 때 발생
+* Thread Stack Space가 부족한 경우
+* Virtual Space Address가 소진된 경우
+* Swap Space가 모자란 경우
+* JNI Library에서 Memory Leak이 발생하는 경우
+* 해소법
+** Thread의 수를 줄인다. 동시에 수십개 이상의 Thread를 사용하는 것은 메모리의 문제 뿐만 아니라 지나친 Context Switching으로 인해 성능을 저하시키는 요인이 된다. Thread Pool 기법을 사용해서 동시 Thread의 수를 줄인다. 대부분의 WAS들이 Thread Pool 기법을 사용하고 있다.
+** Thread Stack Size를 줄인다. 대부분의 OS에서 Thread Stack Size는512K ~ 1M이다. 만일 많은 수의 Thread가 필요한 Application이라면 Thread Stack Size를줄임으로써 OOME를 방지할 수 있다. 많은 경우 -Xss128k 정도나 -Xss256k 정도의 크기에서도 문제없이 작동한다.단, Stack Size가 줄어든 만큼 Stack Overflow Error가 발생할 확률은 높아진다.
+** Java Heap 크기를 줄인다. 32bit Process가 사용 가능한 메모리 공간은 OS에따라 2G ~ 4G로 제한된다. 하나의 Java Process가 사용 가능한 공간은 [Java Heap+PermanentSpace+Native Heap]으로 이루어진다. 따라서 Java Heap이 지나치게 큰 공간을 사용하는 경우 NativeHeap에서 사용 가능한 공간이 줄어들게 된다. 따라서 Java Heap 크기를 줄이면 Native Heap의 메모리 부족에의한 OOME 문제를 해결 할 수 있다. 하지마 Java Heap 크기를 지나치게 줄이면 Java Heap 부족에 의한 OOME현상이 발생할 수 있으므로 유의해야 한다. Java Heap 크기를 줄이는 방법은 Thread Stack Space의 부족 문제뿐 아니라 Native Heap 부족에 의한 OOME 문제를 줄이는 공통적인 해결 방법이다.
+** 64bit JVM을 사용한다. 64bit JVM에서는 32bit JVM Process가 가지는2G ~ 4G의 제한이 없다. 따라서 Native Heap의 메모리 부족 문제가 줄어든다. 이 방법 또한 Native heap부족에 의한 OOME 문제를 줄이는 공통적인 해결 방안이다.
+
+==== Memory Dump
+* jps
+* jmap -dump:format=b,file=heap.hprof [Pid]
+* jhat -J-mx512m heap.hprof
 
 === Collection (Map)
 * Collection
@@ -158,12 +227,34 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[영역 �
 ** Properties (HashTable)
 *** (String, String) 형태로 저장하는 보다 단순화된 컬렉션
 
-=== 멀티쓰레드
+=== Thread
 * Thread 란 : 시작점과 종료점을 가지는 일련된 하나의 작업 흐름
+* Java 스레드는 데몬 스레드(Daemon Thread)와 비데몬 스레드(Non-daemon Thread)로 나눌 수 있음
 * Thread 동기화의 종류
 ** synchronized : 특정 메서드나 코드 블록을 한 번에 한 스레드만 사용하도록 보장
 ** volatile : 상호 배제성을 실현하지 않음, 어떤 스레드건 가장 최근에 기록된 값을 읽도록 보장
 * 읽기 연산과 쓰기 연산에 전부 적용하지 않으면 동기화는 아무런 효과도 없음
+
+==== Thread Dump
+* jstack
+[source,java, indent=0]
+jps -v
+jstack [PID] > jstack.txt
+
+* kill을 이용하는 방법
+[source,java, indent=0]
+ps -ef | grep java
+kill -3 [PID]
+
+* 분석
+[source,java, indent=0]
+"pool-1-thread-13" prio=6 tid=0x000000000729a000 nid=0x2fb4 runnable [0x0000000007f0f000]
+java.lang.Thread.State: RUNNABLE
+
+** "pool-1-thread-13" >> 쓰레드 이름
+** prio=6 >> 우선순위
+** tid=0x000000000729a000 nid=0x2fb4 runnable [0x0000000007f0f000] >> 쓰레드 ID
+** java.lang.Thread.State: RUNNABLE >> 쓰레드 상태
 
 ==== 리플렉션
 * 객체 리플렉션이란
