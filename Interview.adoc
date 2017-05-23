@@ -67,6 +67,10 @@
 ** finalize() 메서드는 GC가 더 이상의 참조가 존재하지 않는 객체를 발견한 순간 호출하는 메서드다.
 ** 파일을 닫는 등, 자원 반환 작업을 하는데 보통 사용
 
+=== Generic
+* 공변 (Covariant) :
+* 반공변 () :
+
 === Java Virtual Machine
 * 가상 머신(virtual machine)이란 여러 가지로 정의할 수 있지만, 프로그램을 실행하기 위해 물리적 머신(즉, 컴퓨터)와 유사한 머신을 소프트웨어로 구현한 것을 말한다고 할 수 있다.
 지금은 비록 빛이 바랜 목표이긴 하나 자바는 원래 WORA(Write Once Run Anywhere)를 구현하기 위해 물리적인 머신과 별개의 가상 머신을 기반으로 동작하도록 설계되었다.
@@ -313,16 +317,19 @@ java.lang.Thread.State: RUNNABLE
 * Bean Factory : 스프링에서는 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트
 * Application Context : Bean Factory 확장, 스프링이 제공하는 각종 부가 서비스를 추가 제공
 
-=== DI
+=== DI [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-factory-collaborators]
 * DI 란 : 클래스 사이의 의존관계를 빈 설정 정보를 바탕으로 컨테이너가 자동적으로 연결해주는 것
 * 종류
-** 생성자를 이용한 의존성 주입
-** Setter 메서드를 이용한 의존성 주입
+** 생성자를 이용한 의존성 주입 [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-constructor-injection]
+** Setter 메서드를 이용한 의존성 주입 [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-setter-injection]
 ** 초기화 인터페이스를 이용한 의존성 주입
 
-=== Bean Scope
-* Singleton 범위
-* Prototype 범위
+=== Bean Scope [https://docs.spring.io/spring/docs/3.0.0.M4/reference/html/ch03s05.html]
+* Singleton : 단일 Bean 정의를 Spring IoC 컨테이너별로 하나의 객체 인스턴스로 범위 지정
+* Prototype : 단일 빈 정의를 원하는 수의 객체 인스턴스로 확장
+* Request : 단일 Bean 정의를 단일 HTTP 요청의 라이프 사이클 범위로 범위 지정합니다. 즉, 각 HTTP 요청에는 단일 Bean 정의의 뒷면에서 작성된 Bean의 자체 인스턴스가 있습니다. 웹 인식 Spring ApplicationContext의 컨텍스트에서만 유효
+* Session : 단일 Bean 정의를 HTTP 세션의 라이프 사이클 범위로 범위 지정합니다. 웹 인식 Spring ApplicationContext의 컨텍스트에서만 유효
+* global Session : 단일 빈 정의를 전역 HTTP 세션의 라이프 사이클으로 범위 지정합니다. 일반적으로 포틀릿 컨텍스트에서 사용되는 경우에만 유효합니다. 웹 인식 Spring ApplicationContext의 컨텍스트에서만 유효
 
 === Spring MVC
 * DispatcherServlet : 클라이언트의 요청을 전달받는다. 컨트롤러에게 클라이언트의 요청을 전달하고, 컨트롤러가 리턴한 결과값을 View 에 전달하여 알맞은 응답을 생성하도록 한다.
@@ -332,6 +339,10 @@ java.lang.Thread.State: RUNNABLE
 * ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담는다.
 * ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정한다.
 * View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송한다.
+
+=== AOP 구분
+==== Spring AOP
+==== AspectJ
 
 == Software Pattern
 
