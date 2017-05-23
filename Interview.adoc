@@ -135,8 +135,7 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[JVM 스�
 *** 스택 프레임: JVM 내에서 메서드가 수행될 때마다 하나의 스택 프레임이 생성되어 해당 스레드의 JVM 스택에 추가되고 메서드가 종료되면 스택 프레임이 제거된다.
 각 스택 프레임은 지역 변수 배열(Local Variable Array), 피연산자 스택(Operand Stack), 현재 실행 중인 메서드가 속한 클래스의 런타임 상수 풀에 대한 레퍼런스를 갖는다.
 지역 변수 배열, 피연산자 스택의 크기는 컴파일 시에 결정되기 때문에 스택 프레임의 크기도 메서드에 따라 크기가 고정
-*** 지역 변수 배열: 0부터 시작하는 인덱스를 가진 배열이다.
-0은 메서드가 속한 클래스 인스턴스의 this 레퍼런스이고, 1부터는 메서드에 전달된 파라미터들이 저장되며, 메서드 파라미터 이후에는 메서드의 지역 변수들이 저장된다.
+*** 지역 변수 배열: 0부터 시작하는 인덱스를 가진 배열이다. 0은 메서드가 속한 클래스 인스턴스의 this 레퍼런스이고, 1부터는 메서드에 전달된 파라미터들이 저장되며, 메서드 파라미터 이후에는 메서드의 지역 변수들이 저장된다.
 *** 피연산자 스택: 메서드의 실제 작업 공간이다. 각 메서드는 피연산자 스택과 지역 변수 배열 사이에서 데이터를 교환하고, 다른 메서드 호출 결과를 추가하거나(push) 꺼낸다(pop).
 피연산자 스택 공간이 얼마나 필요한지는 컴파일할 때 결정할 수 있으므로, 피연산자 스택의 크기도 컴파일 시에 결정
 *** 네이티브 메서드 스택: 자바 외의 언어로 작성된 네이티브 코드를 위한 스택이다.
@@ -150,21 +149,43 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[JVM 스�
 즉, 어떤 메서드나 필드를 참조할 때 JVM은 런타임 상수 풀을 통해 해당 메서드나 필드의 실제 메모리상 주소를 찾아서 참조한다.
 *** 힙: 인스턴스 또는 객체를 저장하는 공간으로 가비지 컬렉션 대상이다. JVM 성능 등의 이슈에서 가장 많이 언급되는 공간이다.
 힙 구성 방식이나 가비지 컬렉션 방법 등은 JVM 벤더의 재량이다.
+
 ==== Tip
 * Java 메서드 크기 65535바이트 제한
 
 === Java Garbage Collection [http://d2.naver.com/helloworld/1329]
 * Java에서는 개발자가 프로그램 코드로 메모리를 명시적으로 해제하지 않기 때문에 가비지 컬렉터(Garbage Collector)가 더 이상 필요 없는 객체를 찾아 지우는 작업을 함
+
+==== 가비지 컬렉션 과정 - Generational Garbage Collection
 * 가비지 컬렉터는 두 가지 가설 하에 만듬
 ** 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다.
 ** 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재한다.
 * HotSpot VM에서는 크게 2개로 물리적 공간을 나눔
-** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치한다. 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말한다.
-** Old 영역(Old Generation 영역): 접근 불가능 상태로 되지 않아 Young 영역에서 살아남은 객체가 여기로 복사된다. 대부분 Young 영역보다 크게 할당하며, 크기가 큰 만큼 Young 영역보다 GC는 적게 발생한다. 이 영역에서 객체가 사라질 때 Major GC(혹은 Full GC)가 발생한다고 말한다.
-** 영역 및 데이터 흐름도 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[영역 및 데이터 흐름도]
+* 영역 및 데이터 흐름도
+[.center.text-center]
+image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="center"]
+** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치한다. 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말함
+** Old 영역(Old Generation 영역): 접근 불가능 상태로 되지 않아 Young 영역에서 살아남은 객체가 여기로 복사된다. 대부분 Young 영역보다 크게 할당하며, 크기가 큰 만큼 Young 영역보다 GC는 적게 발생한다. 이 영역에서 객체가 사라질 때 Major GC(혹은 Full GC)가 발생한다고 말함
+** Old 영역에서 살아남은 객체가 영원히 남아 있는 곳은 절대 아님
+** Permanent Generation 영역(이하 Perm 영역) 이 영역에서 GC가 발생할 수도 있는데, 여기서 GC가 발생해도 Major GC의 횟수에 포함
+** Old 영역에 있는 객체가 Young 영역의 객체를 참조하는 경우
+*** Old 영역에는 512바이트의 덩어리(chunk)로 되어 있는 카드 테이블(card table)이 존재
+*** 카드 테이블에는 Old 영역에 있는 객체가 Young 영역의 객체를 참조할 때마다 정보가 표시
+*** Young 영역의 GC를 실행할 때에는 Old 영역에 있는 모든 객체의 참조를 확인하지 않고, 이 카드 테이블만 뒤져서 GC 대상인지 식별
+*** 카드 테이블은 write barrier를 사용하여 관리
+*** write barrier는 Minor GC를 빠르게 할 수 있도록 하는 장치
+*** write barrirer때문에 약간의 오버헤드는 발생하지만 전반적인 GC 시간은 줄어들게 됨
+* 카드 테이블 구조
+[.center.text-center]
+image:http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[]
 
-==== 가비지 컬렉션 과정 - Generational Garbage Collection
+===== Young 영역의 구성
+===== Old 영역에 대한 GC
+===== Serial GC (-XX:+UseSerialGC)
+===== Parallel GC (-XX:+UseParallelGC)
+===== Parallel Old GC(-XX:+UseParallelOldGC)
+===== CMS GC (-XX:+UseConcMarkSweepGC)
+===== G1 GC
 
 === Out Of Memory Error [http://ukja.tistory.com/61] +
 * Java Virtual Machine Model +
