@@ -271,6 +271,18 @@ image:http://www.nextree.co.kr/content/images/2016/09/JVM-2.png[HotSpot JVM 구�
 * jmap -dump:format=b,file=heap.hprof [Pid]
 * jhat -J-mx512m heap.hprof
 
+==== JDBC
+* JDBC는 DBMS에 접근하기 위한 표준 API
+* JDBC Type4 드라이버는 Java로만 작성되어 있으며(pure java), Java 애플리케이션에서 소켓을 이용해 DBMS와 통신
+* JDBC Type4 드라이버의 DBMS 통신 구조 +
+image:http://d2.naver.com/content/images/2015/06/helloworld-1321-1.png
+* Type4 드라이버는 소켓을 통해 바이트 스트림(byte stream)을 처리하기 때문에 HttpClient 같은 네트워크 라이브러리와 근본적으로 동작이 같음
+* 많은 CPU자원을 소모
+* ResponseTime의 손해
+* 다른 네트워크 라이브러리가 가지고 있는 장애 포인트를 동일가짐
+* HttpClient를 사용한 경험이 있다면 타임아웃 값을 제대로 설정하지 않아 장애(hang)가 발생
+* Type4 드라이버 역시 SocketTimeout 값을 제대로 설정하지 않으면 동일한 장애가 발생
+
 === Collection (Map)
 * Collection
 
@@ -699,3 +711,12 @@ A10 :
 
 
 === 빅오표기볍 (시간, 공간)
+
+== 참고
+* http://d2.naver.com/helloworld/1230
+* http://d2.naver.com/helloworld/1329
+* http://d2.naver.com/helloworld/6043
+* http://d2.naver.com/helloworld/37111
+* http://d2.naver.com/helloworld/329631
+* http://d2.naver.com/helloworld/10963
+* http://d2.naver.com/helloworld/1326256
