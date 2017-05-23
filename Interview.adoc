@@ -232,7 +232,14 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[]
 ===== CMS GC (-XX:+UseConcMarkSweepGC)
 ===== G1 GC
 
+=== Garbage Collection 튜닝
+
+=== 자바 애플리케이션 성능 튜닝의 도(道)
+
 === Java Reference와 GC
+==== 성능 튜닝 과정
+* 자바 애플리케이션 성능 튜닝 과정 +
+image:http://d2.naver.com/content/images/2015/06/helloworld-184615-1.png[]
 
 === Out Of Memory Error [http://ukja.tistory.com/61] +
 * Java Virtual Machine Model +
@@ -402,40 +409,21 @@ java.lang.Thread.State: RUNNABLE
 
 === 버전별 변화
 * 1.5
-** Generic 도입,
-** 향상된 for (foreach)
-** Enum
-** Static Import
-** Metadata
-** Autoboxing / Unboxing
-** ThreadPool
-** Annotation
+** Generic 도입, 향상된 for (foreach), Enum, Static Import, Metadata, Autoboxing / Unboxing, ThreadPool, Annotation
 * 1.6
-** Garbage First
+** Garbage First 및 성능 향상
 * 1.7
 ** 다이아몬드(<>) 지시자 형식 유추
 ** String in Switch Statements :  Java 6 까지의 버전에서는 Switch-case 문에서 case 조건으로 판단할수 잇는 데이터 형은 원시형 데이터
-** Multi-Exception catch
-** null 체크 방법 개선
-** Bracket Notation for Collection
-** 자동 자원 관리 (AutoCloseble)
-** 숫자와 관련된 문자에 밑줄 표시
-** Path를 이용한 처리 (NIO)
-** Fork와 Join
+** Multi-Exception catch, null 체크 방법 개선, Bracket Notation for Collection, 자동 자원 관리 (AutoCloseble), 숫자와 관련된 문자에 밑줄 표시, Path를 이용한 처리 (NIO), Fork와 Join
 * 1.8
-** Lambda Expression
-** Nashorn
-** Annotation 보안
-** OS Process Control
+** Lambda Expression, Nashorn, Annotation 보안, OS Process Control
 ** Default Method Interface (default method, static method)
 ** Date API, Stream API, , Collection 에 Functional Programming
 ** 동시성 API 개선
 ** Permanent Generation 제거 (Metaspace)
 * 1.9
-** Modular System (Jigsaw)
-** Java Shell
-** Stream 메소드 추가
-** System.in Static
+** Modular System (Jigsaw), Java Shell, Stream 메소드 추가
 
 == Spring
 
@@ -467,6 +455,11 @@ java.lang.Thread.State: RUNNABLE
 * ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담는다.
 * ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정한다.
 * View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송한다.
+
+=== Spring ORM (Object Relational Mapping)
+
+=== Spring Test
+==== 유닛 테스트
 
 === AOP 구분
 ==== Spring AOP
@@ -586,6 +579,9 @@ class Student {
 ** 추상화는 구체적으로 사항에 의존해서는 안 된다. 구체적인 사항은 추상화에 의존해야 한다.
 
 === 디자인패턴
+* Singleton Pattern
+
+=== 계층화 아키텍처(Layered architecture)
 
 == 알고리즘 & 자료구조
 
@@ -708,7 +704,8 @@ A6 :
 * http://d2.naver.com/helloworld/1230
 * http://d2.naver.com/helloworld/1329
 * http://d2.naver.com/helloworld/6043
-* http://d2.naver.com/helloworld/37111
-* http://d2.naver.com/helloworld/329631
 * http://d2.naver.com/helloworld/10963
+* http://d2.naver.com/helloworld/37111
+* http://d2.naver.com/helloworld/184615
+* http://d2.naver.com/helloworld/329631
 * http://d2.naver.com/helloworld/1326256
