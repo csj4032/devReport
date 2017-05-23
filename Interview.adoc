@@ -212,8 +212,18 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="ce
 image:http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[]
 
 ===== Young 영역의 구성
- * GC를 이해하기 위해서 객체가 제일 먼저 생성되는 Young 영역부터 알아보자. Young 영역은 3개의 영역으로 나뉨
- * Eden 영역, Survivor 영역(2개)
+* GC를 이해하기 위해서 객체가 제일 먼저 생성되는 Young 영역부터 알아보자. Young 영역은 3개의 영역으로 나뉨
+* Eden 영역, Survivor 영역(2개)
+* 각 영역의 처리 절차
+** 새로 생성한 대부분의 객체는 Eden 영역에 위치
+** Eden 영역에서 GC가 한 번 발생한 후 살아남은 객체는 Survivor 영역 중 하나로 이동
+** Eden 영역에서 GC가 발생하면 이미 살아남은 객체가 존재하는 Survivor 영역으로 객체가 계속 쌓임
+** 하나의 Survivor 영역이 가득 차게 되면 그 중에서 살아남은 객체를 다른 Survivor 영역으로 이동 그리고 가득 찬 Survivor 영역은 아무 데이터도 없는 상태로 됨
+** 이 과정을 반복하다가 계속해서 살아남아 있는 객체는 Old 영역으로 이동하게 됨
+* Survivor 영역 중 하나는 반드시 비어 있는 상태
+* 만약 두 Survivor 영역에 모두 데이터가 존재하거나, 두 영역 모두 사용량이 0이라면 여러분의 시스템은 정상적인 상황이 아님
+* GC 전과 후의 비교 +
+image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[]
 
 ===== Old 영역에 대한 GC
 ===== Serial GC (-XX:+UseSerialGC)
@@ -590,8 +600,8 @@ class Student {
 특히 이 방법은 하위 문제의 수가 기하급수적으로 증가할 때 유용하다.
 
 === 자료구조란?
- * 자료를 효율적으로 표현하고 저장, 처리하기 위해 정리하는 것
- * 컴퓨터에서 사용할 자료를 더 효율적으로 저장하고 처리하기 위해서 자료의 특성과 사용 용도에 따라 분류하고 정리하는 것, 즉 구조화하는 것
+* 자료를 효율적으로 표현하고 저장, 처리하기 위해 정리하는 것
+* 컴퓨터에서 사용할 자료를 더 효율적으로 저장하고 처리하기 위해서 자료의 특성과 사용 용도에 따라 분류하고 정리하는 것, 즉 구조화하는 것
 
 === 선형 리스트
 
@@ -650,6 +660,14 @@ class Student {
 ** Representational State Transfer 라는 용어의 약자로서 2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개
 ** REST는 요소로는 크게 리소스,메서드,메세지 3가지 요소로 구성
 
+=== 빅오표기볍 (time complexity, space complexity)
+* 시간 복잡도(Time Complexity) : 알고리즘의 수행시간 분석결과
+* 공간 복잡도(Space Complexity) : 알고리즘의 메모리 사용량에 대한 분석결과
+* 비교 : O(1) < O(Logn) < O(n) < O(nLogn) < O(n^2) < O(n^3) < O(2^n)
+* 최고차항만 생각하여 계산    ex) n^2 + n +3 = O(n^2)
+* Big-O Complexity +
+image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2561B14456AE53DF246309[]
+
 == Q&A
 
 === Q1 : 쓰레드와 프로세스의 차이는?
@@ -668,49 +686,23 @@ class Student {
 쓰레드는 프로세스의 특정한 수행 경로다.
 한 쓰레드가 프로세스 자원을 변경하면, 다른 이웃 쓰레드도 그 변경 결과를 즉시 볼 수 있다.
 
-Q2 : DB
+Q1 : MSA 에서 Distributed Transaction
 A1 :
 
-Q3 : MSA 에서 Distributed Transaction
-A3 :
+Q2 : 1000 * 1000 셀에 한가지 셀에 1000가지 색이 들어 갈때 필요한 메모리의 양
+A2 : 한셀에 1000가지 색이 들어간다면 한셀에 필요한 비트수는 2^10 = 1024 로 유도하며 품
 
-Q4 : 1000 * 1000 셀에 한가지 셀에 1000가지 색이 들어 갈때 필요한 메모리의 양
-A4 : 한셀에 1000가지 색이 들어간다면 한셀에 필요한 비트수는 2^10 = 1024 로 유도하며 품
+Q3 : 0 ~ 1000의 숫자중 중복 가능하게 1000개의 숫자를 뽑았을때, 이들 중 중간값
+A3 : 카운팅 소트, 1000개의 변수를 갖는 배열, 숫자 값을 인덱스 , 해당 숫자가 나올떄마다 해당 변수의 값을 증가, 갯수를 앞에서부터 더해 500 이상, 지점의 인덱스
 
-Q5 : 문자열로 된 숫자 Int 변환
+Q4 : Multi Thread가 고려된 Singleton 구현
+A4 :
+
+Q5 : 사용해본 DBMS 들의 장담점을 설명해보라
 A5 :
-[source,java, indent=0]
-public static int StringToInt(String str) {
-		int i = 0, num = 0, sign = 1;
-		char[] c = str.toCharArray();
 
-		if (c[i] == '-') {
-			i++;
-			sign = -1;
-		}
-
-		while (i < c.length) {
-			num *= 10;
-			num += c[i] - '0';
-			i++;
-		}
-
-		return num * sign;
-	}
-
-Q6 : 0 ~ 1000의 숫자중 중복 가능하게 1000개의 숫자를 뽑았을때, 이들 중 중간값
-A6 : 카운팅 소트, 1000개의 변수를 갖는 배열, 숫자 값을 인덱스 , 해당 숫자가 나올떄마다 해당 변수의 값을 증가, 갯수를 앞에서부터 더해 500 이상, 지점의 인덱스
-
-Q8 : Multi Thread가 고려된 Singleton 구현
-
-Q9 : 사용해본 DBMS 들의 장담점을 설명해보라
-A9 :
-
-Q10 : 클래스와 객체의 차이
-A10 :
-
-
-=== 빅오표기볍 (시간, 공간)
+Q6 : 클래스와 객체의 차이
+A6 :
 
 == 참고
 * http://d2.naver.com/helloworld/1230
