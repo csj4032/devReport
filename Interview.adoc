@@ -130,6 +130,7 @@ JVM TCK의 테스트 케이스 중에서 가장 많은 부분이 잘못된 클�
 ** 런타임 데이터 영역은 JVM이라는 프로그램이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. 런타임 데이터 영역은 6개의 영역으로 나눌 수 있다.
 이중 PC 레지스터(PC Register), JVM 스택(JVM Stack), 네이티브 메서드 스택(Native Method Stack)은 스레드마다 하나씩 생성되며 힙(Heap), 메서드 영역(Method Area), 런타임 상수 풀(Runtime Constant Pool)은 모든 스레드가 공유해서 사용 +
 
+[.text-center]
 .런타임 데이터 영역
 image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[align="center", title-align="center"]
 
@@ -138,6 +139,7 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[align="ce
 스택 프레임(Stack Frame)이라는 구조체를 저장하는 스택으로, JVM은 오직 JVM 스택에 스택 프레임을 추가하고(push) 제거하는(pop) 동작만 수행한다.
 예외 발생 시 printStackTrace() 등의 메서드로 보여주는 Stack Trace의 각 라인은 하나의 스택 프레임을 표현
 
+[.text-center]
 .JVM 스택 구성
 image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="center", title-align="center"]
 
@@ -171,11 +173,17 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="c
 네이티브 코드를 실행하는 것이 하나씩 인터프리팅하는 것보다 빠르고, 네이티브 코드는 캐시에 보관하기 때문에 한 번 컴파일된 코드는 계속 빠르게 수행
 *** JIT 컴파일러가 컴파일하는 과정은 바이트코드를 하나씩 인터프리팅하는 것보다 훨씬 오래 걸리므로, 만약 한 번만 실행되는 코드라면 컴파일하지 않고 인터프리팅하는 것이 훨씬 유리
 *** JIT 컴파일러를 사용하는 JVM들은 내부적으로 해당 메서드가 얼마나 자주 수행되는지 체크하고, 일정 정도를 넘을 때에만 컴파일을 수행한다.
-* 자바 컴파일러와 JIT 컴파일러 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-7.png[자바 컴파일러와 JIT 컴파일러]
+
+[.text-center]
+.자바 컴파일러와 JIT  컴파일러
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-7.png[align="center", title-align="center"]
+
 *** 실행 엔진이 어떻게 동작하는지는 JVM 명세에 규정되지 않았다. 따라서 JVM 벤더들은 다양한 기법으로 실행 엔진을 향상시키고 다양한 방식의 JIT 컴파일러를 도입
-* JIT 컴파일러 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[JIT 컴파일러]
+
+[.text-center]
+.JIT 컴파일러
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="center", title-align="center"]
+
 *** JIT 컴파일러는 바이트코드를 일단 중간 단계의 표현인 IR(Intermediate Representation)로 변환하여 최적화를 수행하고 그 다음에 네이티브 코드를 생성
 *** 오라클 핫스팟 VM은 핫스팟 컴파일러라고 불리는 JIT 컴파일러를 사용
 *** 핫스팟이라 불리는 이유는 내부적으로 프로파일링을 통해 가장 컴파일이 필요한 부분, 즉 '핫스팟'을 찾아낸 다음, 이 핫스팟을 네이티브 코드로 컴파일하기 때문
