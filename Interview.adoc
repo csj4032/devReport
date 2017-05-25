@@ -89,9 +89,9 @@
 바이트 오더를 사용한다. 네트워크 바이트 오더는 빅 엔디안이다.
  * 오라클 핫스팟 JVM 외에도 IBM JVM을 비롯한 다양한 JVM이 존재
 
-* JVM 구조
-
-image::http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[JVM 구조, align="center"]
+[.center.text-center]
+.JVM 구조
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[align="center", title-align="center"]
 
 ** 자바로 작성한 코드는 클래스 로더(Class Loader)가 컴파일된 자바 바이트코드를 런타임 데이터 영역(Runtime Data Areas)에 로드하고, 실행 엔진(Execution Engine)이 자바 바이트코드를 실행
 ** 클래스 로더
@@ -106,8 +106,12 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[JVM 구�
 **** 계층 구조: 클래스 로더끼리 부모-자식 관계를 이루어 계층 구조로 생성된다. 최상위 클래스 로더는 부트스트랩 클래스 로더(Bootstrap Class Loader)
 **** 위임 모델: 계층 구조를 바탕으로 클래스 로더끼리 로드를 위임하는 구조로 동작한다. 클래스를 로드할 때 먼저 상위 클래스 로더를 확인하여 상위 클래스 로더에 있다면 해당 클래스를 사용하고, 없다면 로드를 요청받은 클래스 로더가 클래스를 로드함
 **** 가시성(visibility) 제한: 하위 클래스 로더는 상위 클래스 로더의 클래스를 찾을 수 있지만, 상위 클래스 로더는 하위 클래스 로더의 클래스를 찾을 수 없음
-**** 언로드 불가: 클래스 로더는 클래스를 로드할 수는 있지만 언로드할 수는 없다. 언로드 대신, 현재 클래스 로더를 삭제하고 아예 새로운 클래스 로더를 생성하는 방법을 사용할 수 있음 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-2.png[클래스 로더 위임 모델]
+**** 언로드 불가: 클래스 로더는 클래스를 로드할 수는 있지만 언로드할 수는 없다. 언로드 대신, 현재 클래스 로더를 삭제하고 아예 새로운 클래스 로더를 생성하는 방법을 사용할 수 있음
+
+[.center.text-center]
+.클래스 로더 위임 모델
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-2.png[align="center", title-align="center"]
+
 *** 클래스 로더 위임 모델
 **** 부트스트랩 클래스 로더: JVM을 기동할 때 생성되며, Object 클래스들을 비롯하여 자바 API들을 로드 다른 클래스 로더와 달리 자바가 아니라 네이티브 코드로 구현
 **** 익스텐션 클래스 로더(Extension Class Loader): 기본 자바 API를 제외한 확장 클래스들을 로드 다양한 보안 확장 기능 등을 여기에서 로드
