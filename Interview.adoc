@@ -110,7 +110,7 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[align="c
 
 [.center.text-center]
 .클래스 로더 위임 모델
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-2.png[align="center", title-align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-2.png[align="center", title-align="center"]
 
 *** 클래스 로더 위임 모델
 **** 부트스트랩 클래스 로더: JVM을 기동할 때 생성되며, Object 클래스들을 비롯하여 자바 API들을 로드 다른 클래스 로더와 달리 자바가 아니라 네이티브 코드로 구현
@@ -229,6 +229,7 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="ce
 *** write barrier는 Minor GC를 빠르게 할 수 있도록 하는 장치
 *** write barrirer때문에 약간의 오버헤드는 발생하지만 전반적인 GC 시간은 줄어들게 됨
 
+[.text-center]
 .카드 테이블 구조
 image::http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[align="center", title-align="center"]
 
@@ -243,8 +244,10 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[align="c
 ** 이 과정을 반복하다가 계속해서 살아남아 있는 객체는 Old 영역으로 이동하게 됨
 * Survivor 영역 중 하나는 반드시 비어 있는 상태
 * 만약 두 Survivor 영역에 모두 데이터가 존재하거나, 두 영역 모두 사용량이 0이라면 여러분의 시스템은 정상적인 상황이 아님
-* GC 전과 후의 비교 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[]
+
+[.text-center]
+.GC 전과 후의 비교
+image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="center", title-align="center"]
 
 ===== Old 영역에 대한 GC
 ===== Serial GC (-XX:+UseSerialGC)
