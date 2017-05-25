@@ -583,6 +583,48 @@ class Student {
 ** 복수의 요소가 모여 있는 집합에서 요소를 순서대로 저장해서 처리
 * Adapter
 ** 서로 다른 인터페이스(API)를 갖는 클래스들을 연결
+* Template Method
+** 상위 클래스에서 처리의 뼈대를 세우고, 구체적인 처리를 하위 클래스에서 실행
+* Factory Method
+** 상위 클래스에서 인스턴스 작성법의 뼈대를 세우고, 구체적인 작성은 하위 클래스에서 실행
+* Singleton
+** 인스턴스가 하나만 존재
+* Prototype
+** 모형이 되는 인스턴스를 복사해서 인스턴스를 만듬
+* Builder
+** 복잡한 인스턴스를 단계적으로 조립
+* Abstract Factory
+** 공장과 같이 부품을 조합해서 인스턴스 생성을 실행
+* Bridge
+** 2종류의 확장이 혼재하는 프로그램을 기능의 계층과 구현의 계층으로 분리하고, 그 사이를 연결
+* Strategy
+** 알고리즘을 전부 교체해서 수정하기 쉽도록 함
+* Composite
+** 그릇과 내용물을 동일시해서 재귀적인 구조를 구축
+* Decorator
+** 장식과 내용물을 동일시해서 장식을 여러 겹 중복되게 함
+* Visitor
+** 데이터 구조를 돌아다니면서 동일한 조작을 반복해서 적용
+* Chain of Responsibility
+** 복수의 오브젝트가 연결되어 있는 내부의 어딘가에서 일을 수행
+* Facade
+** 복잡하게 얽힌 클래스를 개별적으로 제어하는 것이 아니라, 창구 역할을 하는 클래스를 하나 배치해서 시스템 전체의 조작성을 좋게 함
+* Mediator
+** 복수의 클래스가 상호간에 직접 의사 소통을 하는 것이 아니라, 중개역을 하는 클래스를 하나 준비하고, 그 클래스하고만 의사 소통을 하게 해서 프로그램을 단순하게 만드듬
+* Observer
+** 상태가 변화하는 클래스와 그 변화를 통지받는 클래스를 분리해서 생각
+* Memento
+** 현재의 상태를 저장해 두고 필요할 때 복귀시키는 Undo 기능을 설정
+* Stage
+** 상태를 클래스로 표현하고 상태에 적합한 switch 문의 사용을 줄여줌
+* Flyweight
+** 복수의 장소에서 동일한 것이 등장할 때 그것들을 공유해서 낭비를 없앰
+* Proxy
+** 정말로 목적한 것이 필요하게 될 때까지 대리인을 사용해서 처리하는 진행
+* Command
+** 요구나 명령을 형태로 만들어서 클래스로 표현
+** Interpreter
+** 문법규칙을 클래스로 표현
 
 === 계층화 아키텍처(Layered architecture)
 
@@ -664,8 +706,9 @@ class Student {
 * 공간 복잡도(Space Complexity) : 알고리즘의 메모리 사용량에 대한 분석결과
 * 비교 : O(1) < O(Logn) < O(n) < O(nLogn) < O(n^2) < O(n^3) < O(2^n)
 * 최고차항만 생각하여 계산    ex) n^2 + n +3 = O(n^2)
-* Big-O Complexity +
-image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2561B14456AE53DF246309[]
+* Big-O Complexity
+
+image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2561B14456AE53DF246309[Groovy Document Index, align="center"]
 
 == Q&A
 
