@@ -579,7 +579,10 @@ class Student {
 ** 추상화는 구체적으로 사항에 의존해서는 안 된다. 구체적인 사항은 추상화에 의존해야 한다.
 
 === 디자인패턴
-* Singleton Pattern
+* Iterator
+** 복수의 요소가 모여 있는 집합에서 요소를 순서대로 저장해서 처리
+* Adapter
+** 서로 다른 인터페이스(API)를 갖는 클래스들을 연결
 
 === 계층화 아키텍처(Layered architecture)
 
