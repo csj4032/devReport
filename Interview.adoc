@@ -89,8 +89,10 @@
 바이트 오더를 사용한다. 네트워크 바이트 오더는 빅 엔디안이다.
  * 오라클 핫스팟 JVM 외에도 IBM JVM을 비롯한 다양한 JVM이 존재
 
-* JVM 구조 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[JVM 구조]
+* JVM 구조
+
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-1.png[JVM 구조, align="center"]
+
 ** 자바로 작성한 코드는 클래스 로더(Class Loader)가 컴파일된 자바 바이트코드를 런타임 데이터 영역(Runtime Data Areas)에 로드하고, 실행 엔진(Execution Engine)이 자바 바이트코드를 실행
 ** 클래스 로더
 *** 자바는 동적 로드, 즉 컴파일타임이 아니라 런타임에 클래스를 처음으로 참조할 때 해당 클래스를 로드하고 링크하는 특징이 있다. 이 동적 로드를 담당하는 부분이 JVM의 클래스 로더
@@ -127,12 +129,18 @@ JVM TCK의 테스트 케이스 중에서 가장 많은 부분이 잘못된 클�
 * 런타임 데이터 영역 +
 ** 런타임 데이터 영역은 JVM이라는 프로그램이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. 런타임 데이터 영역은 6개의 영역으로 나눌 수 있다.
 이중 PC 레지스터(PC Register), JVM 스택(JVM Stack), 네이티브 메서드 스택(Native Method Stack)은 스레드마다 하나씩 생성되며 힙(Heap), 메서드 영역(Method Area), 런타임 상수 풀(Runtime Constant Pool)은 모든 스레드가 공유해서 사용 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[런타임 데이터 영역]
+
+.런타임 데이터 영역
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[align="center", title-align="center"]
+
 *** PC 레지스터: PC(Program Counter) 레지스터는 각 스레드마다 하나씩 존재하며 스레드가 시작될 때 생성된다. PC 레지스터는 현재 수행 중인 JVM 명령의 주소를 가짐
 *** JVM 스택: JVM 스택은 각 스레드마다 하나씩 존재하며 스레드가 시작될 때 생성된다.
 스택 프레임(Stack Frame)이라는 구조체를 저장하는 스택으로, JVM은 오직 JVM 스택에 스택 프레임을 추가하고(push) 제거하는(pop) 동작만 수행한다.
-예외 발생 시 printStackTrace() 등의 메서드로 보여주는 Stack Trace의 각 라인은 하나의 스택 프레임을 표현 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[JVM 스택 구성]
+예외 발생 시 printStackTrace() 등의 메서드로 보여주는 Stack Trace의 각 라인은 하나의 스택 프레임을 표현
+
+.JVM 스택 구성
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="center", title-align="center"]
+
 *** 스택 프레임: JVM 내에서 메서드가 수행될 때마다 하나의 스택 프레임이 생성되어 해당 스레드의 JVM 스택에 추가되고 메서드가 종료되면 스택 프레임이 제거된다.
 각 스택 프레임은 지역 변수 배열(Local Variable Array), 피연산자 스택(Operand Stack), 현재 실행 중인 메서드가 속한 클래스의 런타임 상수 풀에 대한 레퍼런스를 갖는다.
 지역 변수 배열, 피연산자 스택의 크기는 컴파일 시에 결정되기 때문에 스택 프레임의 크기도 메서드에 따라 크기가 고정
@@ -208,8 +216,9 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="ce
 *** 카드 테이블은 write barrier를 사용하여 관리
 *** write barrier는 Minor GC를 빠르게 할 수 있도록 하는 장치
 *** write barrirer때문에 약간의 오버헤드는 발생하지만 전반적인 GC 시간은 줄어들게 됨
-* 카드 테이블 구조 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[]
+
+.카드 테이블 구조
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[align="center", title-align="center"]
 
 ===== Young 영역의 구성
 * GC를 이해하기 위해서 객체가 제일 먼저 생성되는 Young 영역부터 알아보자. Young 영역은 3개의 영역으로 나뉨
@@ -553,7 +562,9 @@ java.lang.Thread.State: RUNNABLE
 ** Single Responsibility Principle 란 클래스는 하나의 책임을 가져야하며 그 책임에 대한 이유로 변경되어야 한다.
 ** 책임 : '변경을 위한 이유', 한 클래스를 변경하기 위한 한 가지 이상의 이유를 생각할 수 있다면, 그 클래스는 한 가지 이상의 책임을 맡고 있는 것
 ** 예시
+
 [source,java, indent=0]
+----
 class Student {
   // 회사에서 일을 합니다.
   public void work() {
@@ -564,6 +575,7 @@ class Student {
     ......
   }
 }
+----
 
 * Open Close Principle : 개방폐쇄의 원칙
 ** 소프트웨어 개체(클래스, 모듈, 함수 등)는 확장에 대해 열려 있어야 하고, 수정에 대해서는 닫혀 있어야 한다.
@@ -589,7 +601,9 @@ class Student {
 ** 상위 클래스에서 인스턴스 작성법의 뼈대를 세우고, 구체적인 작성은 하위 클래스에서 실행
 * Singleton
 ** 인스턴스가 하나만 존재
+
 [source,java, indent=0]
+----
 public class Singleton {
 
 	private volatile static Singleton singleton;
@@ -614,6 +628,7 @@ public class Singleton {
 		return ticket++;
 	}
 }
+----
 
 * Prototype
 ** 모형이 되는 인스턴스를 복사해서 인스턴스를 만듬
