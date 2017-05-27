@@ -183,21 +183,24 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="c
 
 [.text-center]
 .자바 컴파일러와 JIT  컴파일러
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-7.png[align="center", title-align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-7.png[align="center", title-align="center"]
 
 *** 실행 엔진이 어떻게 동작하는지는 JVM 명세에 규정되지 않았다. 따라서 JVM 벤더들은 다양한 기법으로 실행 엔진을 향상시키고 다양한 방식의 JIT 컴파일러를 도입
 
 [.text-center]
 .JIT 컴파일러
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="center", title-align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="center", title-align="center"]
 
 *** JIT 컴파일러는 바이트코드를 일단 중간 단계의 표현인 IR(Intermediate Representation)로 변환하여 최적화를 수행하고 그 다음에 네이티브 코드를 생성
 *** 오라클 핫스팟 VM은 핫스팟 컴파일러라고 불리는 JIT 컴파일러를 사용
 *** 핫스팟이라 불리는 이유는 내부적으로 프로파일링을 통해 가장 컴파일이 필요한 부분, 즉 '핫스팟'을 찾아낸 다음, 이 핫스팟을 네이티브 코드로 컴파일하기 때문
 *** 핫스팟 VM은 한번 컴파일된 바이트코드라도 해당 메서드가 더 이상 자주 불리지 않는다면, 즉 핫스팟이 아니게 된다면 캐시에서 네이티브 코드를 덜어내고 다시 인터프리터 모드로 동작
 *** 핫스팟 VM은 서버 VM과 클라이언트 VM으로 나뉘어 있고, 각각 다른 JIT 컴파일러를 사용
-* 핫스팟 클라이언트 VM과 서버 VM
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[핫스팟 클라이언트 VM과 서버 VM]
+
+[.text-center]
+.핫스팟 클라이언트 VM과 서버 VM
+image:http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
+
 *** 클라이언트 VM과 서버 VM은 각각 오라클 핫스팟 VM을 실행할 때 입력하는 -client, -server 옵션으로 실행
 *** 클라이언트 VM과 서버 VM은 동일한 런타임을 사용하지만 다른 JIT 컴파일러(Simple Compiler)를 사용
 *** 서버 VM에서 사용하는 Advanced Dynamic Optimizing Compiler가 더 복잡하고 다양한 성능 최적화 기법을 사용
@@ -218,8 +221,11 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[핫스팟
 ** 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다.
 ** 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재한다.
 * HotSpot VM에서는 크게 2개로 물리적 공간을 나눔
-* 영역 및 데이터 흐름도 +
+
+[.text-center]
+.영역 및 데이터 흐름도
 image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="center"]
+
 ** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치한다. 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말함
 ** Old 영역(Old Generation 영역): 접근 불가능 상태로 되지 않아 Young 영역에서 살아남은 객체가 여기로 복사된다. 대부분 Young 영역보다 크게 할당하며, 크기가 큰 만큼 Young 영역보다 GC는 적게 발생한다. 이 영역에서 객체가 사라질 때 Major GC(혹은 Full GC)가 발생한다고 말함
 ** Old 영역에서 살아남은 객체가 영원히 남아 있는 곳은 절대 아님
@@ -264,15 +270,23 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="ce
 === 자바 애플리케이션 성능 튜닝의 도(道)
 
 === Java Reference와 GC
+
 ==== 성능 튜닝 과정
-* 자바 애플리케이션 성능 튜닝 과정 +
+
+[.text-center]
+.자바 애플리케이션 성능 튜닝 과정
 image:http://d2.naver.com/content/images/2015/06/helloworld-184615-1.png[]
 
 === Out Of Memory Error [http://ukja.tistory.com/61] +
-* Java Virtual Machine Model +
-image:http://www.nextree.co.kr/content/images/2016/09/JVM-1.jpg[Java Virtual Machine Model]
-* HotSpot JVM 구조와 영역별 Option +
-image:http://www.nextree.co.kr/content/images/2016/09/JVM-2.png[HotSpot JVM 구조와 영역별 Option]
+
+[.text-center]
+.Java Virtual Machine Model
+image::http://www.nextree.co.kr/content/images/2016/09/JVM-1.jpg[Java Virtual Machine Model]
+
+[.text-center]
+.HotSpot JVM 구조와 영역별 Option
+image::http://www.nextree.co.kr/content/images/2016/09/JVM-2.png[HotSpot JVM 구조와 영역별 Option]
+
 * 보통 잘못된 코딩으로 인해 발생하게 되는 OOME의 대부분은 Permanent Space에서 발생
 
 ==== Java heap spac
@@ -318,8 +332,11 @@ image:http://www.nextree.co.kr/content/images/2016/09/JVM-2.png[HotSpot JVM 구�
 ==== JDBC
 * JDBC는 DBMS에 접근하기 위한 표준 API
 * JDBC Type4 드라이버는 Java로만 작성되어 있으며(pure java), Java 애플리케이션에서 소켓을 이용해 DBMS와 통신
-* JDBC Type4 드라이버의 DBMS 통신 구조 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1321-1.png
+
+[.text-center]
+.JDBC Type4 드라이버의 DBMS 통신 구조
+image::http://d2.naver.com/content/images/2015/06/helloworld-1321-1.png
+
 * Type4 드라이버는 소켓을 통해 바이트 스트림(byte stream)을 처리하기 때문에 HttpClient 같은 네트워크 라이브러리와 근본적으로 동작이 같음
 * 많은 CPU자원을 소모
 * ResponseTime의 손해
@@ -703,15 +720,91 @@ public class Singleton {
 * 자료를 효율적으로 표현하고 저장, 처리하기 위해 정리하는 것
 * 컴퓨터에서 사용할 자료를 더 효율적으로 저장하고 처리하기 위해서 자료의 특성과 사용 용도에 따라 분류하고 정리하는 것, 즉 구조화하는 것
 
-=== 선형 리스트
-
-=== 큐
+=== 리스트
+* 리스트라는 말은 원래 일람표, 목록, 명함을 의미
+* 컴퓨터 공학에서는 요소를 순서대로 나열한 것을 리스트라고 부르며, 열 등으로 불림
 
 === 스택
+* 삽입과 삭제가 리스트의 맨 처음에서만 이루어지는 것
+[source,java, indent=0]
+. 배열로 구현한 스택
+----
+public class MyStack {
 
-=== 해시 테이블
+	Object[] stack;
+	int stackSize;
+	int sp;
+
+	static int DEFAULT_STACK_SIZE = 100;
+
+	public MyStack() {
+		this(DEFAULT_STACK_SIZE);
+	}
+
+	public MyStack(int size) {
+		stack = new Object[size];
+		stackSize = size;
+		sp = 0;
+	}
+
+	public void error(String s) {
+		System.err.println(s);
+		System.exit(1);
+	}
+
+	public void clear() {
+		sp = 0;
+	}
+
+	public void push(Object x) {
+		if (sp >= stackSize) {
+			error("Stack Overflow");
+		}
+		stack[sp++] = x;
+	}
+
+	public Object pop() {
+		if (sp <= 0) {
+			error("Stack underflow");
+		}
+		return stack[--sp];
+	}
+
+	public boolean isEmpty() {
+		return sp == 0;
+	}
+
+	public String toString() {
+		String s;
+		s = "MyStack = [";
+		for (int i = 0; i < sp; i++) {
+			s = s + stack[i];
+			if (i < sp - 1) {
+				s = s + ",";
+			}
+		}
+		s = s + "]";
+		return s;
+	}
+
+	public static void main(String[] args) {
+		MyStack stack = new MyStack();
+		stack.push("a");
+		stack.push("b");
+		System.out.println(stack);
+		while (!stack.isEmpty()) {
+			System.out.println("pop : " + stack.pop());
+		}
+		System.out.println("DONE! " + stack);
+	}
+}
+----
+
+=== 스택
+* 삽입이 한쪽 끝에서만 이루어지고, 삭제는 반대쪽 끝에서만 이루어지는 리스트
 
 === 탐색
+* 탐색이란 표에서 어떤 특정한 값을 가지는 자료를 찾아내는 조작
 
 ==== 선형 탐색
 * 검색 복잡도 : O(n)
@@ -807,6 +900,10 @@ public class BinarySearch {
 }
 ----
 
+==== 해싱
+* 해싱이란 키 값을 배열로 첨자로 변환하는 함수(해시 함수라고 부른다)를 이용하여 고속 탐색을 수행하는 알고리즘
+* 체인화 : 같은 해시 값을 가지는 데이터를 연결 리스트로 연결해 가는 방법
+* 오픈 어드레스 : 충돌이 발생하였을 때 미리 정해 둔 절차에 따라 다른 버킷에 데이터를 저장 (재해싱)
 
 === 정렬
 
@@ -866,9 +963,14 @@ public class BinarySearch {
 * 공간 복잡도(Space Complexity) : 알고리즘의 메모리 사용량에 대한 분석결과
 * 비교 : O(1) < O(Logn) < O(n) < O(nLogn) < O(n^2) < O(n^3) < O(2^n)
 * 최고차항만 생각하여 계산    ex) n^2 + n +3 = O(n^2)
-* Big-O Complexity
 
-image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2561B14456AE53DF246309[Groovy Document Index, align="center"]
+[.text-center]
+.Big-O Complexity
+image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2561B14456AE53DF246309[]
+
+== 데이터베이스
+=== 설계
+=== RDBMS
 
 == Q&A
 
