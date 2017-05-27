@@ -726,9 +726,9 @@ public class Singleton {
 
 === 스택
 * 삽입과 삭제가 리스트의 맨 처음에서만 이루어지는 것
+
 [source,java, indent=0]
 ----
-// 배열로 구현한 스택
 public class MyStack {
 
 	Object[] stack;
@@ -802,9 +802,9 @@ public class MyStack {
 
 === 큐
 * 삽입이 한쪽 끝에서만 이루어지고, 삭제는 반대쪽 끝에서만 이루어지는 리스트
+
 [source,java, indent=0]
 ----
-// 배열로 구현한 큐
 public class MyQueue {
 
 	Object[] queue;
@@ -876,6 +876,9 @@ public class MyQueue {
 	}
 }
 ----
+
+==== 연결 리스트
+* 연결 리스트란 리스트에 포함된 각 요소들을 링크로 이어 붙인 것
 
 === 탐색
 * 탐색이란 표에서 어떤 특정한 값을 가지는 자료를 찾아내는 조작
