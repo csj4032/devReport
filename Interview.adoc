@@ -708,6 +708,107 @@ public class Singleton {
 
 === 해시 테이블
 
+=== 탐색
+
+==== 선형 탐색
+* 검색 복잡도 : O(n)
+* 등록 복잡도 : O(1)
+
+[source,java, indent=0]
+----
+public class LinearSearch {
+
+	class Entry {
+		int 	key;
+		Object	data;
+
+		public Entry (int key, Object data) {
+			this.key = key;
+			this.data = data;
+		}
+	}
+
+	final static int MAX = 100;
+	Entry[] table = new Entry[MAX];
+	int n = 0;
+
+	public void add(int key, Object data) {
+		if(n >= MAX) {
+			System.out.println("AAAA");
+			System.exit(1);
+		}
+		table[n++] = new Entry(key, data);
+	}
+
+	public Object search(int key) {
+		int i;
+		i = 0;
+		while (i < n) {
+			if(table[i].key == key) {
+				return (table[i].data);
+			}
+			i++;
+		}
+		return null;
+	}
+}
+----
+
+==== 이진 탐색
+* 검색 복잡도 O(log n)
+* 등록 복잡도 O(n)
+
+[source,java, indent=0]
+----
+class Entry {
+	int key;
+	Object data;
+
+	public Entry(int key, Object data) {
+		this.key = key;
+		this.data = data;
+	}
+}
+
+public class BinarySearch {
+
+	final static int MAX = 9999999;
+	Entry[] table = new Entry[MAX];
+	int n = 0;
+
+	public Object search(int key) {
+		int low = 0, high, middle;
+		high = n - 1;
+
+		while (low <= high) {
+			middle = (low + high) / 2;
+			if (key == table[middle].key) {
+				return table[middle].data;
+			} else if (key < table[middle].key) {
+				high = middle - 1;
+			} else {
+				low = middle + 1;
+			}
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		BinarySearch bs = new BinarySearch();
+		bs.table[0] = new Entry(0, "Data0");
+		bs.table[1] = new Entry(1, "Data1");
+		bs.table[2] = new Entry(2, "Data2");
+		bs.n = 3;
+		System.out.println(bs.search(2));
+	}
+}
+----
+
+
+=== 정렬
+
+==== 퀵 소트 O(n2), O(lg2)
+
 === ETC
 * AVL-TREE
 * Red-Black Tree
