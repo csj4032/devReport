@@ -120,8 +120,11 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-2.png[align="c
 **** 사용자 정의 클래스 로더(User-Defined Class Loader): 애플리케이션 사용자가 직접 코드 상에서 생성해서 사용하는 클래스 로더
 *** 웹 애플리케이션 서버(WAS)와 같은 프레임워크는 웹 애플리케이션들, 엔터프라이즈 애플리케이션들이 서로 독립적으로 동작하게 하기 위해 사용자 정의 클래스 로더를 사용 (클래스 로더의 위임 모델을 통해 애플리케이션의 독립성을 보장)
 *** WAS의 클래스 로더 구조는 WAS 벤더마다 조금씩 다른 형태의 계층 구조를 사용
-* 클래스 로드 단계 +
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-3.png[클래스 로드 단계]
+
+[.center.text-center]
+.클래스 로드 단계
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-3.png[클래스 로드 단계]
+
 **** 로드: 클래스를 파일에서 가져와서 JVM의 메모리에 로드
 **** 검증(Verifying): 읽어 들인 클래스가 자바 언어 명세(Java Language Specification) 및 JVM 명세에 명시된 대로 잘 구성되어 있는지 검사
 클래스 로드의 전 과정 중에서 가장 까다로운 검사를 수행하는 과정으로서 가장 복잡하고 시간이 많이 걸린다.
@@ -130,20 +133,20 @@ JVM TCK의 테스트 케이스 중에서 가장 많은 부분이 잘못된 클�
 **** 분석(Resolving): 클래스의 상수 풀 내 모든 심볼릭 레퍼런스를 다이렉트 레퍼런스로 변경
 **** 초기화: 클래스 변수들을 적절한 값으로 초기화한다. 즉, static initializer들을 수행하고, static 필드들을 설정된 값으로 초기화
 
-* 런타임 데이터 영역 +
+* 런타임 데이터 영역
 ** 런타임 데이터 영역은 JVM이라는 프로그램이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. 런타임 데이터 영역은 6개의 영역으로 나눌 수 있다.
 이중 PC 레지스터(PC Register), JVM 스택(JVM Stack), 네이티브 메서드 스택(Native Method Stack)은 스레드마다 하나씩 생성되며 힙(Heap), 메서드 영역(Method Area), 런타임 상수 풀(Runtime Constant Pool)은 모든 스레드가 공유해서 사용 +
 
-[.text-center]
+[.center.text-center]
 .런타임 데이터 영역
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[align="center", title-align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-4.png[align="center", title-align="center"]
 
 *** PC 레지스터: PC(Program Counter) 레지스터는 각 스레드마다 하나씩 존재하며 스레드가 시작될 때 생성된다. PC 레지스터는 현재 수행 중인 JVM 명령의 주소를 가짐
 *** JVM 스택: JVM 스택은 각 스레드마다 하나씩 존재하며 스레드가 시작될 때 생성된다.
 스택 프레임(Stack Frame)이라는 구조체를 저장하는 스택으로, JVM은 오직 JVM 스택에 스택 프레임을 추가하고(push) 제거하는(pop) 동작만 수행한다.
 예외 발생 시 printStackTrace() 등의 메서드로 보여주는 Stack Trace의 각 라인은 하나의 스택 프레임을 표현
 
-[.text-center]
+[.center.text-center]
 .JVM 스택 구성
 image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="center", title-align="center"]
 
