@@ -727,8 +727,8 @@ public class Singleton {
 === 스택
 * 삽입과 삭제가 리스트의 맨 처음에서만 이루어지는 것
 [source,java, indent=0]
-. 배열로 구현한 스택
 ----
+// 배열로 구현한 스택
 public class MyStack {
 
 	Object[] stack;
@@ -800,8 +800,82 @@ public class MyStack {
 }
 ----
 
-=== 스택
+=== 큐
 * 삽입이 한쪽 끝에서만 이루어지고, 삭제는 반대쪽 끝에서만 이루어지는 리스트
+[source,java, indent=0]
+----
+// 배열로 구현한 큐
+public class MyQueue {
+
+	Object[] queue;
+	int queueSize;
+	int front;
+	int rear;
+
+	// 큐의 기본 크기
+	static int DEFAULT_OUEUE_SIZE = 100;
+
+	public MyQueue() {
+		this(DEFAULT_OUEUE_SIZE);
+	}
+
+	public MyQueue(int size) {
+		queueSize = size;
+		queue = new Object[size];
+		front = rear = 0;
+	}
+
+	public void error(String s) {
+		System.err.print(s);
+		System.exit(1);
+	}
+
+	public int next(int a) {
+		return (a - 1) % queueSize;
+	}
+
+	public void clear() {
+		front = rear = 0;
+	}
+
+	public void enqueue(Object x) {
+		if (next(rear) == front) {
+			error("이 이상 큐에 요소를 추가할 수 없습니다.");
+		}
+		queue[rear] = x;
+		rear = next(rear);
+	}
+
+	public Object dequeue() {
+		if (front == rear) {
+			error("큐가 비어있기 때문에 요소를 꺼낼 수 없습니다.");
+		}
+		Object x = queue[front];
+		front = next(front);
+		return x;
+	}
+
+	public boolean isEmplty() {
+		return front == rear;
+	}
+
+	public String toString() {
+		String s;
+		s = "MyQueue = [ ";
+		for (int i = front; i != rear; i = next(i)) {
+			s += queue[i] + " ";
+		}
+		s += "] front = " + front + " rear = " + rear;
+		return s;
+	}
+
+	public static void main(String[] args) {
+		MyQueue q = new MyQueue(5);
+		q.enqueue("a");
+		System.out.println(q);
+	}
+}
+----
 
 === 탐색
 * 탐색이란 표에서 어떤 특정한 값을 가지는 자료를 찾아내는 조작
