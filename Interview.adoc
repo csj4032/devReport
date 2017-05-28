@@ -165,8 +165,7 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="c
 *** 런타임 상수 풀: 클래스 파일 포맷에서 constant_pool 테이블에 해당하는 영역이다. 메서드 영역에 포함되는 영역이긴 하지만, JVM 동작에서 가장 핵심적인 역할을 수행하는 곳이기 때문에 JVM 명세에서도 따로 중요하게 기술한다.
 각 클래스와 인터페이스의 상수뿐만 아니라, 메서드와 필드에 대한 모든 레퍼런스까지 담고 있는 테이블이다.
 즉, 어떤 메서드나 필드를 참조할 때 JVM은 런타임 상수 풀을 통해 해당 메서드나 필드의 실제 메모리상 주소를 찾아서 참조한다.
-*** 힙: 인스턴스 또는 객체를 저장하는 공간으로 가비지 컬렉션 대상이다. JVM 성능 등의 이슈에서 가장 많이 언급되는 공간이다.
-힙 구성 방식이나 가비지 컬렉션 방법 등은 JVM 벤더의 재량이다.
+*** 힙: 인스턴스 또는 객체를 저장하는 공간으로 가비지 컬렉션 대상이다. JVM 성능 등의 이슈에서 가장 많이 언급되는 공간이다. 힙 구성 방식이나 가비지 컬렉션 방법 등은 JVM 벤더의 재량이다.
 ** 실행 엔진
 *** 클래스 로더를 통해 JVM 내의 런타임 데이터 영역에 배치된 바이트코드는 실행 엔진에 의해 실행
 *** 실행 엔진은 자바 바이트코드를 명령어 단위로 읽어서 실행한다. CPU가 기계 명령어을 하나씩 실행하는 것과 비슷
@@ -199,7 +198,7 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="c
 
 [.text-center]
 .핫스팟 클라이언트 VM과 서버 VM
-image:http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
 
 *** 클라이언트 VM과 서버 VM은 각각 오라클 핫스팟 VM을 실행할 때 입력하는 -client, -server 옵션으로 실행
 *** 클라이언트 VM과 서버 VM은 동일한 런타임을 사용하지만 다른 JIT 컴파일러(Simple Compiler)를 사용
@@ -224,7 +223,7 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
 
 [.text-center]
 .영역 및 데이터 흐름도
-image:http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="center"]
 
 ** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치한다. 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말함
 ** Old 영역(Old Generation 영역): 접근 불가능 상태로 되지 않아 Young 영역에서 살아남은 객체가 여기로 복사된다. 대부분 Young 영역보다 크게 할당하며, 크기가 큰 만큼 Young 영역보다 GC는 적게 발생한다. 이 영역에서 객체가 사라질 때 Major GC(혹은 Full GC)가 발생한다고 말함
@@ -256,9 +255,29 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[align="c
 
 [.text-center]
 .GC 전과 후의 비교
-image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="center", title-align="center"]
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="center", title-align="center"]
 
 ===== Old 영역에 대한 GC
+* Serial GC
+** Old 영역의 GC는 mark-sweep-compact이라는 알고리즘을 사용
+** 첫 단계는 Old 영역에 살아 있는 객체를 식별(Mark)하는 것
+** 다음에는 힙(heap)의 앞 부분부터 확인하여 살아 있는 것만 남김
+** 마지막 단계에서는 각 객체들이 연속되게 쌓이도록 힙의 가장 앞 부분부터 채워서 객체가 존재하는 부분과 객체가 없는 부분으로 나눔
+** Serial GC는 적은 메모리와 CPU 코어 개수가 적을 때 적합한 방식
+* Parallel GC
+** Parallel GC는 Serial GC와 기본적인 알고리즘은 같음
+** Serial GC는 GC를 처리하는 스레드가 하나인 것에 비해, Parallel GC는 GC를 처리하는 쓰레드가 여러 개
+** Serial GC보다 빠른게 객체를 처리할 수있음
+** Parallel GC는 메모리가 충분하고 코어의 개수가 많을 때 유리
+** Parallel GC는 Throughput GC라고도 부름
+
+[.text-center]
+.Serial GC와 Parallel GC
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-4.png[]
+
+* Parallel Old GC(Parallel Compacting GC)
+* Concurrent Mark & Sweep GC(이하 CMS)
+* G1(Garbage First) GC
 ===== Serial GC (-XX:+UseSerialGC)
 ===== Parallel GC (-XX:+UseParallelGC)
 ===== Parallel Old GC(-XX:+UseParallelOldGC)
@@ -275,7 +294,7 @@ image:http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="ce
 
 [.text-center]
 .자바 애플리케이션 성능 튜닝 과정
-image:http://d2.naver.com/content/images/2015/06/helloworld-184615-1.png[]
+image::http://d2.naver.com/content/images/2015/06/helloworld-184615-1.png[]
 
 === Out Of Memory Error [http://ukja.tistory.com/61] +
 
@@ -1068,7 +1087,7 @@ image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tisto
 한 쓰레드가 프로세스 자원을 변경하면, 다른 이웃 쓰레드도 그 변경 결과를 즉시 볼 수 있다.
 
 == 참고
-* http://d2.naver.com/helloworld/1230
+* http://d2.naver.com/helloworld/1230 [JVM Internal]
 * http://d2.naver.com/helloworld/1329
 * http://d2.naver.com/helloworld/6043
 * http://d2.naver.com/helloworld/10963
