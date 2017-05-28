@@ -258,13 +258,14 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-2.png[align="c
 image::http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="center", title-align="center"]
 
 ===== Old 영역에 대한 GC
-* Serial GC
+
+* Serial GC (-XX:+UseSerialGC)
 ** Old 영역의 GC는 mark-sweep-compact이라는 알고리즘을 사용
 ** 첫 단계는 Old 영역에 살아 있는 객체를 식별(Mark)하는 것
 ** 다음에는 힙(heap)의 앞 부분부터 확인하여 살아 있는 것만 남김
 ** 마지막 단계에서는 각 객체들이 연속되게 쌓이도록 힙의 가장 앞 부분부터 채워서 객체가 존재하는 부분과 객체가 없는 부분으로 나눔
 ** Serial GC는 적은 메모리와 CPU 코어 개수가 적을 때 적합한 방식
-* Parallel GC
+* Parallel GC (-XX:+UseParallelGC)
 ** Parallel GC는 Serial GC와 기본적인 알고리즘은 같음
 ** Serial GC는 GC를 처리하는 스레드가 하나인 것에 비해, Parallel GC는 GC를 처리하는 쓰레드가 여러 개
 ** Serial GC보다 빠른게 객체를 처리할 수있음
@@ -275,16 +276,53 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-3.png[align="c
 .Serial GC와 Parallel GC
 image::http://d2.naver.com/content/images/2015/06/helloworld-1329-4.png[]
 
-* Parallel Old GC(Parallel Compacting GC)
-* Concurrent Mark & Sweep GC(이하 CMS)
+* Parallel Old GC (Parallel Compacting GC)
+** Parallel Old GC는 JDK 5 update 6부터 제공한 GC 방식
+** Parallel GC와 비교하여 Old 영역의 GC 알고리즘만 다름
+** 이 방식은 Mark-Summary-Compaction 단계를 거침
+** Summary 단계는 앞서 GC를 수행한 영역에 대해서 별도로 살아 있는 객체를 식별한다는 점에서 Mark-Sweep-Compaction 알고리즘의 Sweep 단계와 다르며, 약간 더 복잡한 단계를 거침
+* Concurrent Mark & Sweep GC(이하 CMS) (-XX:+UseConcMarkSweepGC)
+** 초기 Initial Mark 단계에서는 클래스 로더에서 가장 가까운 객체 중 살아 있는 객체만 찾는 것으로 끝냄.
+** 멈추는 시간은 매우 짧음
+** Concurrent Mark 단계에서는 방금 살아있다고 확인한 객체에서 참조하고 있는 객체들을 따라가면서 확인
+** 이 단계의 특징은 다른 스레드가 실행 중인 상태에서 동시에 진행됨
+** 그 다음 Remark 단계에서는 Concurrent Mark 단계에서 새로 추가되거나 참조가 끊긴 객체를 확인
+** 마지막으로 Concurrent Sweep 단계에서는 쓰레기를 정리하는 작업을 실행 (다른 스레드가 실행되고 있는 상황에서 진행)
+** 이러한 단계로 진행되는 GC 방식이기 때문에 stop-the-world 시간이 매우 짧음
+** 모든 애플리케이션의 응답 속도가 매우 중요할 때 CMS GC를 사용하며, Low Latency GC라고도 부름
+** 다른 GC 방식보다 메모리와 CPU를 더 많이 사용
+** Compaction 단계가 기본적으로 제공되지 않음
+
+[.text-center]
+.Serial GC와 CMS GC
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-5.png[]
+
 * G1(Garbage First) GC
-===== Serial GC (-XX:+UseSerialGC)
-===== Parallel GC (-XX:+UseParallelGC)
-===== Parallel Old GC(-XX:+UseParallelOldGC)
-===== CMS GC (-XX:+UseConcMarkSweepGC)
-===== G1 GC
+** G1 GC를 이해하려면 지금까지의 Young 영역과 Old 영역에 대해서는 잊는 것이 좋음
+** G1 GC는 바둑판의 각 영역에 객체를 할당하고 GC를 실행
+** 해당 영역이 꽉 차면 다른 영역에서 객체를 할당하고 GC를 실행
+** Young의 세가지 영역에서 데이터가 Old 영역으로 이동하는 단계가 사라진 GC 방식
+** G1 GC는 장기적으로 말도 많고 탈도 많은 CMS GC를 대체하기 위해서 만들어짐
+
+[.text-center]
+.G1 GC의 레이아웃
+image::http://d2.naver.com/content/images/2015/06/helloworld-1329-6.png[]
 
 === Garbage Collection 튜닝
+* -Xms 옵션과 –Xmx 옵션으로메모리크기를지정
+* -server 옵션이포함
+* 시스템에 Timeout 로그와같은로그가남지않음
+
+==== Old 영역으로 넘어가는 객체의 수 최소화하기
+* 간혹 Eden 영역에서 만들어지다가 크기가 커져서 Old 영역으로 바로 넘어가는 객체도 있음
+* Old 영역의 GC는 New 영역의 GC에 비하여 상대적으로 시간이 오래 소요되기 때문에 Old 영역으로 이동하는 객체의 수를 줄이면 Full GC가 발생하는 빈도를 많이 줄일 수 있음
+
+==== Full GC 시간 줄이기
+* Full GC의 실행 시간은 상대적으로 Minor GC에 비하여 김
+* Full GC 실행에 시간이 오래 소요되면(1초 이상) 연계된 여러 부분에서 타임아웃이 발생할 수 있음
+* Full GC 실행 시간을 줄이기 위해서 Old 영역의 크기를 줄이면 자칫 OutOfMemoryError가 발생, Full GC 횟수가 늠
+* Old 영역의 크기를 늘리면 Full GC 횟수는 줄어들지만 실행 시간이 늘어남
+* Old 영역의 크기를 적절하게 '잘' 설정
 
 === 자바 애플리케이션 성능 튜닝의 도(道)
 
