@@ -352,9 +352,51 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-6.png[]
 
 |===
 
-=== 자바 애플리케이션 성능 튜닝의 도(道)
+* GC 튜닝을 할 때 자주 사용하는 옵션은 -Xms 옵션, -Xmx 옵션, -XX:NewRatio 옵션
+* -Xms 옵션과 -Xmx 옵션은 필수로 지정해야 하는 옵션
+* NewRatio 옵션을 어떻게 설정하느냐에 따라서 GC 성능에 많은 차이가 발생
+* Perm 영역의 크기는 OutOfMemoryError 가 발생하고, 그 문제의 원인이 Perm 영역의 크기 때문일 때에만 -XX:PermSize 옵션과 -XX:MaxPermSize 옵션으로 지정해도 큰 문제없음
+
+.GC 방식에 따라 지정 가능한 옵션
+|===
+|구분 |옵션 |비고
+
+|Serial GC
+|-XX:+UseSerialGC
+|
+
+|Parallel GC
+|-XX:+UseParallelGC, -XX:ParallelGCThreads=value
+|
+
+|Parallel Compacting GC
+|-XX:+UseParallelOldGC
+|
+
+|CMS GC
+|-XX:+UseConcMarkSweepGC, -XX:+UseParNewGC, -XX:+CMSParallelRemarkEnabled, -XX:CMSInitiatingOccupancyFraction=value, -XX:+UseCMSInitiatingOccupancyOnly
+|
+
+|G1
+|-XX:+UnlockExperimentalVMOptions, -XX:+UseG1GC
+|JDK 6에서는 두 옵션을 반드시 같이 사용해야 함
+|===
+
+==== GC 튜닝의 절차
+1. GC 상황 모니터링
+2. 모니터링 결과 분석 후 GC 튜닝 여부 결정
+3. GC 방식/메모리 크기 지정
+4. 결과 분석
+5. 결과가 만족스러울 경우 전체 서버에 반영 및 종료
 
 === Java Reference와 GC
+* Java의 가비지 컬렉터(Garbage Collector)는 그 동작 방식에 따라 매우 다양한 종류가 있음
+* 공통적으로 크게 다음 2가지 작업을 수행
+** 힙(heap) 내의 객체 중에서 가비지(garbage)를 찾음
+** 찾아낸 가비지를 처리해서 힙의 메모리를 회수
+* 최초의 Java에서는 이들 가비지 컬렉션(Garbage Collection, 이하 GC) 작업에 애플리케이션의 사용자 코드가 관여하지 않도록 구현됨
+* JDK 1.2부터는 java.lang.ref 패키지를 추가해 제한적이나마 사용자 코드와 GC가 상호작용할 수 있음
+* java.lang.ref 패키지는 전형적인 객체 참조인 strong reference 외에도 soft, weak, phantom 3가지의 새로운 참조 방식을 각각의 Reference 클래스로 제공
 
 ==== 성능 튜닝 과정
 
