@@ -324,6 +324,34 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1329-6.png[]
 * Old 영역의 크기를 늘리면 Full GC 횟수는 줄어들지만 실행 시간이 늘어남
 * Old 영역의 크기를 적절하게 '잘' 설정
 
+==== GC의 성능을 결정하는 옵션
+
+. GC 튜닝 시 기본적으로 학인해야 하는 JVM 옵션
+|===
+|구분 | 옵션 | 설명
+
+|힙(heap) 영역 크기
+|-Xms
+|JVM 시작 시 힙 영역 크기
+
+|
+|-Xmx
+|최대 힙 영역 크기
+
+|New 영역의 크기
+|-XX:NewRatio
+|New 영역과 Old 영역의 비율
+
+|
+|-XX:NewSize
+|New 영역의 크기
+
+|
+|-XX:SurvivorRatio
+|Eden 영역과 Survivor 영역의 비율
+
+|===
+
 === 자바 애플리케이션 성능 튜닝의 도(道)
 
 === Java Reference와 GC
