@@ -180,13 +180,13 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-5.png[align="c
 *** JIT 컴파일러가 컴파일하는 과정은 바이트코드를 하나씩 인터프리팅하는 것보다 훨씬 오래 걸리므로, 만약 한 번만 실행되는 코드라면 컴파일하지 않고 인터프리팅하는 것이 훨씬 유리
 *** JIT 컴파일러를 사용하는 JVM들은 내부적으로 해당 메서드가 얼마나 자주 수행되는지 체크하고, 일정 정도를 넘을 때에만 컴파일을 수행한다.
 
-[.text-center]
+[.center.text-center]
 .자바 컴파일러와 JIT  컴파일러
 image::http://d2.naver.com/content/images/2015/06/helloworld-1230-7.png[align="center", title-align="center"]
 
 *** 실행 엔진이 어떻게 동작하는지는 JVM 명세에 규정되지 않았다. 따라서 JVM 벤더들은 다양한 기법으로 실행 엔진을 향상시키고 다양한 방식의 JIT 컴파일러를 도입
 
-[.text-center]
+[.center.text-center]
 .JIT 컴파일러
 image::http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="center", title-align="center"]
 
@@ -196,7 +196,7 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-8.png[align="c
 *** 핫스팟 VM은 한번 컴파일된 바이트코드라도 해당 메서드가 더 이상 자주 불리지 않는다면, 즉 핫스팟이 아니게 된다면 캐시에서 네이티브 코드를 덜어내고 다시 인터프리터 모드로 동작
 *** 핫스팟 VM은 서버 VM과 클라이언트 VM으로 나뉘어 있고, 각각 다른 JIT 컴파일러를 사용
 
-[.text-center]
+[.center.text-center]
 .핫스팟 클라이언트 VM과 서버 VM
 image::http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
 
@@ -606,6 +606,7 @@ java.lang.Thread.State: RUNNABLE
 * Bean : 스프링이 IoC 방식으로 관리하는 오브젝트
 * Bean Factory : 스프링에서는 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트
 * Application Context : Bean Factory 확장, 스프링이 제공하는 각종 부가 서비스를 추가 제공
+* Configuration metadata : application context 혹은 bean factory 가 IoC를 적용하기 위해 사용하는 메타정보, 스프링의 설정정보는 컨테이너에 어떤 기능을 세팅하거나 조정하는 경우에도 사용하지만 주로 bean 을 생성/구성하는 용도로 사용
 
 === DI [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-factory-collaborators]
 * DI 란 : 클래스 사이의 의존관계를 빈 설정 정보를 바탕으로 컨테이너가 자동적으로 연결해주는 것
@@ -613,6 +614,36 @@ java.lang.Thread.State: RUNNABLE
 ** 생성자를 이용한 의존성 주입 [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-constructor-injection]
 ** Setter 메서드를 이용한 의존성 주입 [https://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-setter-injection]
 ** 초기화 인터페이스를 이용한 의존성 주입
+
+=== 클래스 호출방식 (IoC, DI)
+[.center.text-center]
+.일반적인 클래스 호출
+image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile8.uf.tistory.com%2Fimage%2F17363C3A4FAB775331E573[align="center", title-align="center"]
+
+* 클래스내에서 선언과 구현이 한몸이기 떄문에 다양한 형태로 변화가 불가능
+
+[.text-center]
+.인터페이스를 이용한 클래스 호출
+image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile2.uf.tistory.com%2Fimage%2F18152F374FAB77F10E2007[align="center", title-align="center"]
+
+* 클래스를 인터페이스와 구현클래스로 분리
+* 구현클래스 교체가 용이하여 다양한 형태로 변화가 가능하지만 구현클래스 교체시 호출 클래스의 소스를 수정
+
+[.text-center]
+.팩토리패턴을 이용한 클래스 호출방식
+image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile25.uf.tistory.com%2Fimage%2F203486364FAB78FD1F9865[align="center", title-align="center"]
+
+* 팩토리방식은 팩토리가 구현클래스를 생성하므로 클래스는 팩토리를 호출하는 코드로 충분
+* 구현클래스 변경시 호출클래스에는 영향을 미치지 않고, 팩토리만 수정
+* 하지만 클래스에 팩토리를 호출하는 소스가 들어가야한다. 그것 자체가 팩토리에 의존함을 의미
+
+[.text-center]
+.IoC를 이용한 클래스 호출 방식
+image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile29.uf.tistory.com%2Fimage%2F164AC9354FAB798B07767C[align="center", title-align="center"]
+
+* 팩토리패턴의 장점을 더하여 어떠한것에도 의존하지 않는 형태로 구성이 가능
+* 실행 시점에 클래스간의 관계가 형성
+* 즉 의존성이 삽입된다는 의미로 IoC를 DI(Dependency Injection) 라는 표현으로 사용
 
 === Bean Scope [https://docs.spring.io/spring/docs/3.0.0.M4/reference/html/ch03s05.html]
 * Singleton : 단일 Bean 정의를 Spring IoC 컨테이너별로 하나의 객체 인스턴스로 범위 지정
@@ -1206,3 +1237,4 @@ image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tisto
 * http://d2.naver.com/helloworld/184615
 * http://d2.naver.com/helloworld/329631
 * http://d2.naver.com/helloworld/1326256
+* http://isstory83.tistory.com/m/91
