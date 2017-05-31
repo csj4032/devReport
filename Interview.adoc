@@ -8,12 +8,12 @@
     * 논리형 : true, false 중 하나를 값으로 갖으며, 조건식과 논리적 계산에 사용
         ** boolean : 1byte (false, true)
     * 문자형 : 문자를 저장하는데 사용되며, 변수 당 하나의 문자만을 저장할 수 있음
-        ** char : 2byte (u0000~uffff 0~2^16)
+        ** char : 2byte (u0000~uffff, 0~2^16)
     * 정수형 : 정수 값을 저장하는 데 사용된다 주로 사용되는 것은 int, long
-        ** byte : 1byte (128 ~ 127 -2^7~2^7)
-        ** short : 2byte (128 ~ 127 -2^15~2^15-1)
-        ** int : 4byte (128 ~ 127 -2^31~2^31-1)
-        ** long : 8byte (-2^63~2^63-1)
+        ** byte : 1byte (-128 ~ 127, -2^7~2^7)
+        ** short : 2byte (-32768 ~ 32767, -2^15~2^15-1)
+        ** int : 4byte (-2147483648 ~ 2147483647, -2^31~2^31-1)
+        ** long : 8byte (-9223372036854775808 ~ 9223372036854775807, -2^63~2^63-1)
     * 실수형 : 실수 값을 저장하는데 사용됨 float, double
         ** float : 4byte
         ** double : 8byte
@@ -218,15 +218,15 @@ image::http://d2.naver.com/content/images/2015/06/helloworld-1230-9.png[]
 
 ==== 가비지 컬렉션 과정 - Generational Garbage Collection
 * 가비지 컬렉터는 두 가지 가설 하에 만듬
-** 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다.
-** 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재한다.
+** 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 됨
+** 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재
 * HotSpot VM에서는 크게 2개로 물리적 공간을 나눔
 
 [.text-center]
 .영역 및 데이터 흐름도
 image::http://d2.naver.com/content/images/2015/06/helloworld-1329-1.png[align="center"]
 
-** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치한다. 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말함
+** Young 영역(Yong Generation 영역): 새롭게 생성한 객체의 대부분이 여기에 위치, 대부분의 객체가 금방 접근 불가능 상태가 되기 때문에 매우 많은 객체가 Young 영역에 생성되었다가 사라진다. 이 영역에서 객체가 사라질때 Minor GC가 발생한다고 말함
 ** Old 영역(Old Generation 영역): 접근 불가능 상태로 되지 않아 Young 영역에서 살아남은 객체가 여기로 복사된다. 대부분 Young 영역보다 크게 할당하며, 크기가 큰 만큼 Young 영역보다 GC는 적게 발생한다. 이 영역에서 객체가 사라질 때 Major GC(혹은 Full GC)가 발생한다고 말함
 ** Old 영역에서 살아남은 객체가 영원히 남아 있는 곳은 절대 아님
 ** Permanent Generation 영역(이하 Perm 영역) 이 영역에서 GC가 발생할 수도 있는데, 여기서 GC가 발생해도 Major GC의 횟수에 포함
@@ -1286,6 +1286,14 @@ image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tisto
 * WHERE 절에서 자주 사용하는 칼럼에는 인덱스 추가를 고려한다.
 * 인덱스를 많이 생성하는 것은 INSERT/UPDATE/DELETE의 성능 저하의 원인이 될 수 있다.
 * 인덱스 스캔이 테이블 순차 스캔보다 항상 빠르지는 않다. 보통 선택도(selectivity)가 5~10% 이내인 경우에 인덱스 스캔이 우수하다.
+
+== ETC
+
+=== 마이크로 아키텍처
+
+=== DDD
+
+=== TDD
 
 == Q&A
 
