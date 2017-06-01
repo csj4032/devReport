@@ -1289,7 +1289,8 @@ image:http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile22.uf.tisto
 
 == ETC
 
-=== 마이크로 아키텍처
+=== 마이크로서비스
+* 작고 자율적으로 협업하는 서비스를 의미함
 
 === Domain Driven Design
 
