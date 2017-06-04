@@ -68,8 +68,9 @@
 ** 파일을 닫는 등, 자원 반환 작업을 하는데 보통 사용
 
 === Generic
-* 공 분산 (Covariant) : 원래 지정된 것보다 더 많이 파생된 형식을 사용할 수 있습니다.
-* 반공 분산 (Contravariance) : 원래 지정된 것보다 더 제네릭한(덜 파생적인) 형식을 사용할 수 있습니다.
+* 공변성(Covariance)과 반공변성(Contravariance)은 원래 지정된 것보다 더 적게 파생되거나(덜 구체적인) 더 많이 파생된 형식(더 구체적인)을 사용할 수 있는 능력을 지칭하는 용어입니다.
+* 공변성 (Covariant) : 원래 지정된 것보다 더 많이 파생된 형식을 사용할 수 있습니다.
+* 반공변성 (Contravariance) : 원래 지정된 것보다 더 제네릭한(덜 파생적인) 형식을 사용할 수 있습니다.
 * 불변량 : Invariance : 원래 지정된 형식만 사용할 수 있다는 의미이므로, 불변하는 제네릭 형식 매개 변수는 공변성도, 반공변성도 아닙니다.
 * PECS : Produce - Extends, Consumer - Super
 
@@ -725,6 +726,9 @@ image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2
 
 === AOP 구분
 ==== Spring AOP
+* Spring AOP는 주어진 대상객체에 대한 프록시를 생성하는데 JDK 동적 프록시와 CGLIB를 모두 사용
+
+
 ==== AspectJ
 
 == Software Pattern
