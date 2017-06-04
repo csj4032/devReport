@@ -659,6 +659,9 @@ java.lang.Thread.State: RUNNABLE
 
 == Spring
 
+=== POJO (Plain Old Java Object)
+* 객체지향적인 원리에 충실하면서, 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트
+
 === IoC(Inversion of Control) Container
 * IoC 란 : 프로그래머가 작성한 프로그램이 재사용 라이브러리의 흐름 제어를 받게 되는 소프트웨어 디자인 패턴을 말한다.
 * Bean : 스프링이 IoC 방식으로 관리하는 오브젝트
@@ -725,11 +728,15 @@ image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2
 ==== 유닛 테스트
 
 === AOP 구분
+
 ==== Spring AOP
 * Spring AOP는 주어진 대상객체에 대한 프록시를 생성하는데 JDK 동적 프록시와 CGLIB를 모두 사용
-
+* Spring AOP에서는 단지 DI의 도움을 받아 프록시 오브젝트를 추가함으로써 코드를 애스펙트를 적용
 
 ==== AspectJ
+* 타킷 오브젝트 자체의 코드를 바꿈으로써 애스펙트를 적용
+* 프록시를 사용하지 않음
+* 타킷 오브젝트의 자바 코드에 처음부터 애스펙트가 적용되어 있던 것처럼 클래스 바이트코드를 변경하는 작업이 필요
 
 == Software Pattern
 
@@ -1390,8 +1397,6 @@ image:http://cfile1.uf.tistory.com/image/127825564E375F7D0E7358[]
 ==== Bounded Context
 * 각각의 업무는 분할된 컨텍스트로 나눌 수 있으며 각 Context에 사용되는 모델은 서로 분리되어야 하며, 각 하나의 Context는 하나의 팀에 할당되어 관리되는 것이 좋다.
 또한 이러한 방향은 Micro Service Architecture에서 추구하는 방향이기도 하다.
-
-
 
 === TDD
 
