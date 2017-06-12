@@ -716,13 +716,13 @@ image::https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2
 * global Session : 단일 빈 정의를 전역 HTTP 세션의 라이프 사이클으로 범위 지정합니다. 일반적으로 포틀릿 컨텍스트에서 사용되는 경우에만 유효합니다. 웹 인식 Spring ApplicationContext의 컨텍스트에서만 유효
 
 === Spring Web MVC [http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html]
-* DispatcherServlet : 클라이언트의 요청을 전달받는다. 컨트롤러에게 클라이언트의 요청을 전달하고, 컨트롤러가 리턴한 결과값을 View 에 전달하여 알맞은 응답을 생성하도록 한다.
-* HandlerMapping : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지를 결정한다.
+* DispatcherServlet : 클라이언트의 요청을 전달받는다. 컨트롤러에게 클라이언트의 요청을 전달하고, 컨트롤러가 리턴한 결과값을 View 에 전달하여 알맞은 응답을 생성하도록 함
+* HandlerMapping : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지를 결정
 * HandlerAdapter : DispatcherServlet 의 처리 요청을 변환해서 컨트롤러에게 전달하고, 컨트롤러의 응답 결과를 DispatcherServlet 이 요구하는 형식으로 변환한다. 웹브라우저 캐시 등의 설정도 담당
-* Controller : 클라이언트의 요청을 처리한 뒤 결과를 리턴한다. 응답 결과에서 보여줄 데이터를 모델에 담아 전달한다.
-* ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담는다.
-* ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정한다.
-* View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송한다.
+* Controller : 클라이언트의 요청을 처리한 뒤 결과를 리턴한다. 응답 결과에서 보여줄 데이터를 모델에 담아 전달
+* ModelAndView : 컨트롤러의 처리 결과를 정보 및 뷰 선택에 필요한 정보를 담음
+* ViewResolver : 컨트롤러의 처리 결과를 보여줄 뷰를 결정
+* View : 컨트롤러의 처리 결과를 화면을 생성한다. JSP나 Velocity 템플릿 파일 등을 이용해서 클라이언트에 응답 결과를 전송
 
 [.text-center]
 .The request processing workflow in Spring Web MVC
@@ -1457,6 +1457,3 @@ image:http://cfile1.uf.tistory.com/image/127825564E375F7D0E7358[]
 * http://isstory83.tistory.com/m/91
 
 = 학이시습지 불역열호 유붕자원방래 불열락호 인부지이불온 불역군자호
-
-
-//AC80588DEE15FCE8997FEA1F17B8C5A0
