@@ -1,0 +1,9 @@
+## MySQL-N-gram
+
+### document
+* https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-mecab.html
+* https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html
+* https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html
+
+### blog
+* http://mysqldba.tistory.com/287
