@@ -1,0 +1,5 @@
+## Spring-DI
+
+### blog
+* http://toby.epril.com/?p=911
+* http://david.heinemeierhansson.com/2012/dependency-injection-is-not-a-virtue.html

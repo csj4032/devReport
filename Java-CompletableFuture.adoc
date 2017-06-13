@@ -1,3 +1,6 @@
 ## CompletableFuture
 ### document
 * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
+
+### blog
+* http://www.baeldung.com/java-completablefuture
