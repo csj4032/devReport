@@ -1426,6 +1426,12 @@ image:http://cfile1.uf.tistory.com/image/127825564E375F7D0E7358[]
 * 각각의 업무는 분할된 컨텍스트로 나눌 수 있으며 각 Context에 사용되는 모델은 서로 분리되어야 하며, 각 하나의 Context는 하나의 팀에 할당되어 관리되는 것이 좋다.
 또한 이러한 방향은 Micro Service Architecture에서 추구하는 방향이기도 하다.
 
+=== 시스템 성능 최적화
+
+==== 개선 방향성
+===== 병렬/분산 처리
+
+
 === TDD
 
 == Q&A
