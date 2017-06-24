@@ -1507,6 +1507,34 @@ image:http://cfile1.uf.tistory.com/image/127825564E375F7D0E7358[]
 쓰레드는 프로세스의 특정한 수행 경로다.
 한 쓰레드가 프로세스 자원을 변경하면, 다른 이웃 쓰레드도 그 변경 결과를 즉시 볼 수 있다.
 
+=== Q2 : 시리얼라이즈와 JSON 방식 효율 비교
+
+=== Q3 : HTTP와 HTTPS 차이 및 S가 보호하는 OSI7계층 위치
+
+=== Q4 : REST vs SOAP
+
+=== Q5 : 쓰레드 동기화 방법 여러가지
+
+=== Q6 : 주로 사용하는 자료구조
+
+=== Q7 : JVM 메모리 구조
+
+=== Q8 : GC 처리 방법
+
+=== Q9 : 옛날 GC와 요즘 GC 차이
+
+=== Q10 : TCP UDP 차이
+
+=== Q11 : TCP를 UDP처럼 빠르게 하려면?
+
+=== Q12 : 디비풀 사용 이유
+
+=== Q13 : 디비 실시간 통신과 디비풀 이용 시의 차이
+
+=== Q14 : 시리얼라이즈로 데이터 전송할 때 문제점
+
+=== Q15 : 맵과 리스트 성능 차이
+
 == 참고
 * http://d2.naver.com/helloworld/1230 [JVM Internal]
 * http://d2.naver.com/helloworld/1321 [JDBC Internal - 타임아웃의 이해]
