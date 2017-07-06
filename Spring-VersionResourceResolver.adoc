@@ -1,1 +1,4 @@
-## 참고 URL : https://dzone.com/articles/2-step-resource-versioning-with-spring-mvc
+## Spring-VersionResourceResolver
+
+## URL
+* https://dzone.com/articles/2-step-resource-versioning-with-spring-mvc

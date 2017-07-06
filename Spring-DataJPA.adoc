@@ -1,4 +1,4 @@
 ## Spring Data JPA
 
-### Document
+### URL
 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html

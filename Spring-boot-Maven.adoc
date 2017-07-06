@@ -1,4 +1,4 @@
 ## Spring-boot Maven
 
-### Spring Boot Maven Plugin (profiles)
+### URL
 * http://docs.spring.io/spring-boot/docs/current/maven-plugin/examples/run-profiles.html

@@ -1,7 +1,5 @@
 ## Spring-HttpClient
 
-### document
+### URL
 * http://docs.spring.io/spring/docs/5.0.0.BUILD-SNAPSHOT/javadoc-api/org/springframework/web/client/reactive/WebClient.html
-
-### example
 * http://www.baeldung.com/httpclient-post-http-request
