@@ -1,7 +1,5 @@
 ## Java-RxJava
 
-Slide :
+### URL
 * https://www.slideshare.net/gmind7/springcamp2015-rxjava
-
-Video :
 * https://www.youtube.com/watch?v=E_Bgv9upahI
